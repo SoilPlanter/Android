@@ -26,7 +26,7 @@ fun loadLoginScreen() {
             painter = painterResource(id = R.drawable.ic_launcher_foreground),
             contentDescription = stringResource(
             id = R.string.app_name)
-            )
+            )//
 
     }
 
