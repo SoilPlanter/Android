@@ -1,4 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="icon_large">100dp</dimen>
+    <dimen name="text_large">24sp</dimen>
+    <dimen name="max_post_height">500dp</dimen>
+    <dimen name="min_post_height">100dp</dimen>
+    <dimen name="icon_medium">50dp</dimen>
+    <dimen name="margin_medium">8dp</dimen>
+    <dimen name="text_medium_2">18sp</dimen>
+    <dimen name="icon_medium_2">68dp</dimen>
+    <dimen name="text_medium_1">14sp</dimen>
+    <dimen name="max_img_height">400dp</dimen>
+    <dimen name="min_img_height">300dp</dimen>
+    <dimen name="max_add">75dp</dimen>
+    <dimen name="corners">8dp</dimen>
+    <dimen name="icon_small">25dp</dimen>
+
 </resources>

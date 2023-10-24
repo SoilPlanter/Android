@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:minHeight="@dimen/min_post_height"
+    android:maxHeight="@dimen/max_post_height"
+    android:layout_height="match_parent">
+
+    <com.mikhaellopez.circularimageview.CircularImageView
+        android:id="@+id/post_view_profile_pic"
+        android:layout_width="@dimen/icon_medium_2"
+        android:layout_height="@dimen/icon_medium_2"
+        android:layout_margin="@dimen/margin_medium"
+        android:src="@drawable/baseline_account_circle_24"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <TextView
+        android:id="@+id/post_name_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin_medium"
+        android:text="Thomas | New Post"
+        android:paddingTop="@dimen/margin_medium"
+        android:textColor="@color/black"
+        android:textSize="@dimen/text_medium_2"
+        app:layout_constraintBottom_toTopOf="@+id/post_name_desc"
+        app:layout_constraintStart_toEndOf="@id/post_view_profile_pic"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/post_name_desc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin_medium"
+        android:text="This is sooo much fun. Took thi..."
+        android:textColor="@color/black"
+        android:textSize="@dimen/text_medium_1"
+        android:layout_marginBottom="@dimen/margin_medium"
+
+        app:layout_constraintBottom_toBottomOf="@id/post_view_profile_pic"
+        app:layout_constraintStart_toEndOf="@id/post_view_profile_pic" />
+
+    <com.makeramen.roundedimageview.RoundedImageView
+        android:id="@+id/img_post"
+        android:layout_width="match_parent"
+        android:minHeight="@dimen/max_img_height"
+        android:layout_height="wrap_content"
+        android:src="@color/green_prime"
+        android:scaleType="centerCrop"
+        android:maxHeight="@dimen/max_img_height"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_margin="@dimen/margin_medium"
+        app:layout_constraintTop_toBottomOf="@id/post_name_desc"
+        app:riv_corner_radius="20dip" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

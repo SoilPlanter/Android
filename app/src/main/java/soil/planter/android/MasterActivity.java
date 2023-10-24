@@ -2,7 +2,6 @@ package soil.planter.android;
 
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.PersistableBundle;
 import android.util.Log;
 import android.widget.FrameLayout;
 
@@ -11,8 +10,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
+import soil.planter.android.Views.TopBar;
+
 public class MasterActivity extends AppCompatActivity implements Pagination{
     private FrameLayout container;
+    private TopBar topBar;
     private static final String TAG = "MasterActivity";
     private FragmentManager fragmentManager;
 
@@ -23,6 +25,7 @@ public class MasterActivity extends AppCompatActivity implements Pagination{
         fragmentManager = getSupportFragmentManager();
 
         container = findViewById(R.id.master_container);
+        topBar = findViewById(R.id.topbar);
         new Paginator().initPagination(this);
         switchPage(new SplashScreen());
 

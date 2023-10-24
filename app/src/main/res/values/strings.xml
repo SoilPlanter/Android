@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Soil</string>
+    <string name="welcome">Welcome back, Caleb\n</string>
+    <string name="your_planters">Your Planters</string>
 </resources>
