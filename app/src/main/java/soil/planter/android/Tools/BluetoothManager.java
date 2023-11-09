@@ -1,10 +1,7 @@
 package soil.planter.android.Tools;
 
-import static androidx.core.content.ContextCompat.checkSelfPermission;
-
 import android.Manifest;
 
-import android.Manifest;
 import android.app.Activity;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
@@ -13,6 +10,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
+import android.os.Build;
+import android.os.ParcelUuid;
 import android.util.Log;
 
 import androidx.activity.result.ActivityResult;
@@ -21,10 +20,10 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 
 import java.util.Set;
 
+import soil.planter.android.Experimental.BTDevice;
 import soil.planter.android.Views.ExperimentalView;
 
 public class BluetoothManager {
@@ -36,16 +35,17 @@ public class BluetoothManager {
             if (BluetoothAdapter.ACTION_STATE_CHANGED.equals(action)) {
                 if (intent.getIntExtra(BluetoothAdapter.EXTRA_STATE, -1) == BluetoothAdapter.STATE_OFF) {
                     // Bluetooth is disconnected, do handling here
-                    btListener.listener(false);
+                    blueToothListenerListener.listen(false);
 
                 } else {
-                    btListener.listener(true);
+                    blueToothListenerListener.listen(true);
                 }
             }
         }
 
     };
-    private BT btListener;
+    private BlueToothListener blueToothListenerListener;
+    private Discovery discoveryListener;
 
     public static BluetoothManager getInstance() {
         if (instance == null)
@@ -146,6 +146,12 @@ public class BluetoothManager {
                 String deviceName = device.getName();
                 String deviceHardwareAddress = device.getAddress(); // MAC address
                 Log.d(TAG, "onReceiveBT: " + deviceName + " " + deviceHardwareAddress);
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+                    discoveryListener.addDevice(new BTDevice(deviceName,deviceHardwareAddress,device.getAlias(), device.getUuids()));
+                }
+                else
+                    discoveryListener.addDevice(new BTDevice(deviceName,deviceHardwareAddress,"", device.getUuids()));
+
             }
         }
     };
@@ -178,7 +184,8 @@ public class BluetoothManager {
         }
     }
 
-    public void discovery() throws RuntimeException{
+    public void discovery(Discovery discovery) throws RuntimeException{
+        this.discoveryListener = discovery;
         if (bluetoothAdapter == null)
             throw new RuntimeException("start bluetooth first");
         IntentFilter filter = new IntentFilter(BluetoothDevice.ACTION_FOUND);
@@ -201,8 +208,8 @@ public class BluetoothManager {
         activity.unregisterReceiver(receiver);
     }
 
-    public boolean listenBT(BT listener) {
-        btListener = listener;
+    public boolean listenBT(BlueToothListener listener) {
+        blueToothListenerListener = listener;
         return blueToothIsOn();
 
     }
@@ -212,8 +219,11 @@ public class BluetoothManager {
 
     }
 
-    public interface BT{
-        void listener(boolean isOn);
+    public interface BlueToothListener {
+        void listen(boolean isOn);
+    }
+    public interface Discovery{
+        void addDevice(BTDevice device);
     }
 
 
