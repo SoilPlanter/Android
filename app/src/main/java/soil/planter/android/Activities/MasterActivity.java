@@ -36,29 +36,52 @@ public class MasterActivity extends AppCompatActivity {
     private TopBar topBar;
     private static final String TAG = "MasterActivity";
     private FragmentManager fragmentManager;
-
+    private ActivityResultLauncher<String> requestPermissionLauncher =
+            registerForActivityResult(new ActivityResultContracts.RequestPermission(), isGranted -> {
+                if (isGranted) {
+                    // Permission is granted. Continue the action or workflow in your
+                    // app.
+                } else {
+                    // Explain to the user that the feature is unavailable because the
+                    // feature requires a permission that the user has denied. At the
+                    // same time, respect the user's decision. Don't link to system
+                    // settings in an effort to convince the user to change their
+                    // decision.
+                }
+            });
     @Override
     protected void onStart() {
         super.onStart();
-        bluetoothManager = new BluetoothManager(this);
+        bluetoothManager = BluetoothManager.getInstance();
+        bluetoothManager.setActivity(this);
 
     }
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getPermsissions();
         initViews();
         fragmentManager = getSupportFragmentManager();
 
         viewPager.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
         setContentView(viewPager);
-        viewPager.setAdapter(new ViewPagerExperimental(new ViewPagerExperimental.Splash() {
-            @Override
-            public void display() {
-                fragmentManager.beginTransaction().replace(R.id.master_container, new SplashScreen()).commit();
-            }
-        }));
+        viewPager.setAdapter(new ViewPagerExperimental(() -> fragmentManager.beginTransaction().replace(R.id.master_container, new SplashScreen()).commit()));
     }
+
+    private void getPermsissions() {
+        requestPermissionLauncher.launch(
+                Manifest.permission.BLUETOOTH_SCAN);
+        requestPermissionLauncher.launch(
+                Manifest.permission.BLUETOOTH_CONNECT);
+        requestPermissionLauncher.launch(
+                Manifest.permission.ACCESS_COARSE_LOCATION);
+        requestPermissionLauncher.launch(
+                Manifest.permission.ACCESS_FINE_LOCATION);
+        requestPermissionLauncher.launch(
+                Manifest.permission.BLUETOOTH);
+    }
+
     private void initViews() {
         container = findViewById(R.id.master_container);
         topBar = findViewById(R.id.topbar);

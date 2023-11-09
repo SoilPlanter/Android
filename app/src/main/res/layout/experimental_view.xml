@@ -4,6 +4,18 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <com.makeramen.roundedimageview.RoundedImageView
+        android:id="@+id/image_bt_on_off"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:background="@color/green_prime"
+        app:riv_corner_radius="5dp"
+
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        />
+
     <Button
         android:id="@+id/btn_find_devices_ex"
         android:layout_width="wrap_content"
@@ -11,6 +23,22 @@
         android:text="Find Bluetooth Device"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/btn_end_blue" />
+    <Button
+        android:id="@+id/btn_start_blue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Start Bluetooth"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/image_bt_on_off" />
+    <Button
+        android:id="@+id/btn_end_blue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="End Bluetooth"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btn_start_blue" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
