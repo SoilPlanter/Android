@@ -35,7 +35,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
-            <soil.planter.android.AddButton
+            <soil.planter.android.Views.AddButton
                 android:id="@+id/add_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />

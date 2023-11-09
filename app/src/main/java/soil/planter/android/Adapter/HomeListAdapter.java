@@ -1,4 +1,4 @@
-package soil.planter.android;
+package soil.planter.android.Adapter;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,6 +8,9 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
+
+import soil.planter.android.Post;
+import soil.planter.android.R;
 
 public class HomeListAdapter extends RecyclerView.Adapter<HomeListAdapter.ViewHolder> {
     private ArrayList<Post> posts = new ArrayList<Post>();

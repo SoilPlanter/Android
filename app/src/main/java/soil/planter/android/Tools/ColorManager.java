@@ -1,9 +1,10 @@
-package soil.planter.android;
-
-import android.graphics.Color;
+package soil.planter.android.Tools;
 
 import java.util.ArrayList;
 import java.util.function.Consumer;
+
+import soil.planter.android.Application;
+import soil.planter.android.Interfaces.Colorful;
 
 public class ColorManager {
     private final int primaryLight = 0;
