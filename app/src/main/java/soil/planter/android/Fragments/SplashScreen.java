@@ -20,6 +20,7 @@ public class SplashScreen extends Fragment implements Pagination {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         return inflater.inflate(R.layout.splash_screen,container,false);
+
     }
 
     @Override

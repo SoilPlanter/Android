@@ -5,6 +5,8 @@
     android:background="@color/white"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+    <androidx.appcompat.widget.AppCompatButton>
+
     <soil.planter.android.Views.TopBar
         android:id="@+id/topbar"
         android:layout_width="match_parent"

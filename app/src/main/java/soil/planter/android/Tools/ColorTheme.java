@@ -118,6 +118,8 @@ public class ColorTheme {
 
     public static class Light extends ColorTheme {
         public Light(Context context) {
+
+
         }
     }
     public static class Dark extends ColorTheme {
