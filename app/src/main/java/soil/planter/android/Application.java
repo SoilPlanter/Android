@@ -17,6 +17,8 @@ public class Application extends android.app.Application {
     public void onTerminate() {
         super.onTerminate();
         BluetoothManager.getInstance().terminateReceivers();
+
+        BluetoothManager.getInstance().endDiscovery();
     }
 
     public static Context getAppContext() {

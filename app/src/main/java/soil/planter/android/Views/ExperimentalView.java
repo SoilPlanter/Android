@@ -1,44 +1,52 @@
 package soil.planter.android.Views;
 
 
+import android.Manifest;
+import android.bluetooth.BluetoothDevice;
 import android.content.Context;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Handler;
-import android.os.ParcelUuid;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 import androidx.annotation.Nullable;
-import androidx.appcompat.view.menu.MenuBuilder;
+import androidx.core.app.ActivityCompat;
 
 import com.makeramen.roundedimageview.RoundedImageView;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.function.Predicate;
 
-import soil.planter.android.Experimental.BTDevice;
 import soil.planter.android.R;
+import soil.planter.android.Tools.BTConnectThread;
 import soil.planter.android.Tools.BluetoothManager;
 
 public class ExperimentalView extends FrameLayout implements BluetoothManager.BlueToothListener {
+    private static final String TAG = "ExperimentalView";
     private Button findDeviceBtn;
     private Button startBlueToothBtn;
 
     private Button endBlueToothBtn;
+    private Button btnSendCommand;
+    private EditText editText;
+    private BluetoothManager bluetoothManager;
     LinearLayout deviceContainer;
     private RoundedImageView roundedImageViewBtONOFF;
 
 
     private static final int REQUEST_ENABLE_BT = 7;
-    private ArrayList<BTDevice> devices;
+    private ArrayList<BluetoothDevice> devices = new ArrayList<>();
+    private Handler handler = new Handler();
 
     public ExperimentalView(Context context) {
         super(context);
@@ -68,9 +76,21 @@ public class ExperimentalView extends FrameLayout implements BluetoothManager.Bl
         findDeviceBtn = findViewById(R.id.btn_find_devices_ex);
         roundedImageViewBtONOFF = findViewById(R.id.image_bt_on_off);
         endBlueToothBtn = findViewById(R.id.btn_end_blue);
+        btnSendCommand = findViewById(R.id.btn_send_command_ex);
+        editText = findViewById(R.id.edit_ex_command);
+
+        btnSendCommand.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                bluetoothManager.sendCommand(editText.getText().toString());
+                editText.setText("");
+
+
+            }
+        });
         deviceContainer = findViewById(R.id.device_container_ex);
 
-        BluetoothManager bluetoothManager = BluetoothManager.getInstance();
+        bluetoothManager = BluetoothManager.getInstance();
 
         startBlueToothBtn = findViewById(R.id.btn_start_blue);
 
@@ -91,21 +111,26 @@ public class ExperimentalView extends FrameLayout implements BluetoothManager.Bl
         findDeviceBtn.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
+                handler.removeCallbacksAndMessages(null);
+                bluetoothManager.endDiscovery();
+                deviceContainer.removeAllViews();
+                devices.clear();
                 bluetoothManager.discovery(new BluetoothManager.Discovery() {
                     @Override
-                    public void addDevice(BTDevice device) {
-                        if (!devices.stream().anyMatch(btDevice -> btDevice.getAdress().equals(device.getAdress())))
+                    public void addDevice(BluetoothDevice device) {
+                        if (!devices.stream().anyMatch(btDevice -> btDevice.getAddress().equals(device.getAddress())))
                             devices.add(device);
                         updateListDevicesView();
                     }
                 });
-                new Handler().postDelayed(new Runnable() {
+                handler =new Handler();
+                handler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
                         bluetoothManager.endDiscovery();
 
                     }
-                },12000);
+                }, 2200);
 
             }
         });
@@ -116,10 +141,40 @@ public class ExperimentalView extends FrameLayout implements BluetoothManager.Bl
 
     private void updateListDevicesView() {
         deviceContainer.removeAllViews();
-        for (BTDevice btDevice : devices){
+        for (BluetoothDevice btDevice : devices) {
+            if (btDevice == null)
+                continue;
             TextView view = new TextView(getContext());
+            view.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    bluetoothManager.connect(new BTConnectThread.BTConnection() {
+                        @Override
+                        public void connected(boolean isConnected) {
+                            Toast.makeText(getContext(), "Connected: " + isConnected, Toast.LENGTH_SHORT).show();
+                        }
+                    }, btDevice);
 
-            view.setText(btDevice.getName());
+
+                }
+            });
+            if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.BLUETOOTH_CONNECT) != PackageManager.PERMISSION_GRANTED) {
+                // TODO: Consider calling
+                //    ActivityCompat#requestPermissions
+                // here to request the missing permissions, and then overriding
+                //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                //                                          int[] grantResults)
+                // to handle the case where the user grants the permission. See the documentation
+                // for ActivityCompat#requestPermissions for more details.
+                return;
+            }
+            if (btDevice.getName() != null && !btDevice.getName().equals(""))
+                view.setText(btDevice.getName());
+            else
+                view.setText(btDevice.getAddress());
+
+            deviceContainer.setOrientation(LinearLayout.VERTICAL);
+            view.setLayoutParams(new ViewGroup.LayoutParams(200,200));
             deviceContainer.addView(view);
         }
     }

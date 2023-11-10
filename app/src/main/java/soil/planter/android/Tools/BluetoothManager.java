@@ -5,13 +5,14 @@ import android.Manifest;
 import android.app.Activity;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
+import android.bluetooth.le.ScanCallback;
+import android.bluetooth.le.ScanResult;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.os.Build;
-import android.os.ParcelUuid;
 import android.util.Log;
 
 import androidx.activity.result.ActivityResult;
@@ -21,12 +22,14 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Set;
-
-import soil.planter.android.Experimental.BTDevice;
-import soil.planter.android.Views.ExperimentalView;
+import java.util.function.Predicate;
 
 public class BluetoothManager {
+    private ArrayList<BluetoothDevice> bluetoothDevices = new ArrayList<>();
     private static BluetoothManager instance;
 
     private final BroadcastReceiver bStateReceiver = new BroadcastReceiver() {
@@ -44,6 +47,14 @@ public class BluetoothManager {
         }
 
     };
+
+    public void connect(BTConnectThread.BTConnection connection, BluetoothDevice device1) {
+
+        BluetoothDevice device = bluetoothAdapter.getRemoteDevice(device1.getAddress());
+
+        new BTConnectThread(connection, device, bluetoothAdapter, activity).run();
+    }
+
     private BlueToothListener blueToothListenerListener;
     private Discovery discoveryListener;
 
@@ -145,12 +156,13 @@ public class BluetoothManager {
                 }
                 String deviceName = device.getName();
                 String deviceHardwareAddress = device.getAddress(); // MAC address
-                Log.d(TAG, "onReceiveBT: " + deviceName + " " + deviceHardwareAddress);
+                Log.d(TAG, "onReceiveBT: " + deviceName + " " + deviceHardwareAddress + " " + Arrays.toString(device.getUuids()));
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-                    discoveryListener.addDevice(new BTDevice(deviceName,deviceHardwareAddress,device.getAlias(), device.getUuids()));
+                    discoveryListener.addDevice(device);
                 }
                 else
-                    discoveryListener.addDevice(new BTDevice(deviceName,deviceHardwareAddress,"", device.getUuids()));
+                    discoveryListener.addDevice(device);
+                bluetoothDevices.add(device);
 
             }
         }
@@ -205,7 +217,11 @@ public class BluetoothManager {
 
     }
     public void endDiscovery(){
-        activity.unregisterReceiver(receiver);
+        try {
+            activity.unregisterReceiver(receiver);
+        }catch (Exception e){
+            Log.e(TAG, "endDiscovery: ", e);
+        }
     }
 
     public boolean listenBT(BlueToothListener listener) {
@@ -219,11 +235,15 @@ public class BluetoothManager {
 
     }
 
+    public void sendCommand(String toString) {
+
+    }
+
     public interface BlueToothListener {
         void listen(boolean isOn);
     }
     public interface Discovery{
-        void addDevice(BTDevice device);
+        void addDevice(BluetoothDevice device);
     }
 
 
