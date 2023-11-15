@@ -17,50 +17,58 @@ import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.setValue
-import soil.planter.android.jetpackCompose.dataClasses.BottomNavigationItem
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.currentBackStackEntryAsState
+import soil.planter.android.jetpackCompose.classes.BottomNavigationItem
+/*
+Todo:
+ list of items should not be hardcoded inside the BottomNav composable
+ icons of navbar must be changed up
+ */
+
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter") // no custom padding when using scaffold
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-
-fun BottomNav() {
+fun BottomNav(
+    navController: NavHostController,
+    onItemClick: (BottomNavigationItem) -> Unit
+) {
     val items = listOf(
         BottomNavigationItem(
             title = "Home",
+            route = "home_screen",
             selectedIcon = Icons.Filled.Home,
             unselectedIcon = Icons.Outlined.Home,
             hasNews = false,
             badgeCount = null
         ),
         BottomNavigationItem(
-            title = "Chat",
+            title = "Dictionary",
+            route = "dictionary_screen",
             selectedIcon = Icons.Filled.Email,
             unselectedIcon = Icons.Outlined.Email,
             hasNews = false,
             badgeCount = null
         ),
         BottomNavigationItem(
-            title = "Settings",
+            title = "Shop",
+            route = "shop_screen",
             selectedIcon = Icons.Filled.Settings,
             unselectedIcon = Icons.Outlined.Settings,
             hasNews = false,
             badgeCount = null
         ),
     )
-    var selectedItemIndex by rememberSaveable {
-        mutableStateOf(0)
-    }
+    val backStackEntry = navController.currentBackStackEntryAsState()
     Scaffold(
         bottomBar = {
             NavigationBar {
-                items.forEachIndexed{index, item ->
+                items.forEach{ item ->
+                    val selected = item.route == backStackEntry.value?.destination?.route
                     NavigationBarItem(
-                        selected = false,
-                        onClick = { selectedItemIndex = index },
+                        selected = selected,
+                        onClick = { onItemClick(item) },
                         label = {
                             Text(text = item.title)
                         },
@@ -77,7 +85,7 @@ fun BottomNav() {
                                 }
                             ) {
                                 Icon(
-                                    imageVector = if (selectedItemIndex == index) {
+                                    imageVector = if (selected) {
                                         item.selectedIcon
                                     } else item.unselectedIcon,
                                     contentDescription = item.title
@@ -89,6 +97,6 @@ fun BottomNav() {
             }
         }
     ) {
-        /* can be empty, ignore errors*/
+        Navigation(navController = navController)
     }
 }

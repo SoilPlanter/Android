@@ -1,16 +1,13 @@
-package soil.planter.android.jetpackCompose.Activities
+package soil.planter.android.jetpackCompose.activities
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.navigation.compose.rememberNavController
 import soil.planter.android.jetpackCompose.ui.theme.SoilTheme
 import soil.planter.android.jetpackCompose.composables.*
 
@@ -25,19 +22,13 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    BottomNav()
-                    Column(
-                        verticalArrangement = Arrangement.Center,
-                        horizontalAlignment = Alignment.CenterHorizontally
-                    ) {
-                        Row(
-                            horizontalArrangement = Arrangement.Center,
-                            verticalAlignment = Alignment.CenterVertically
-                        ) {
-                            AddButton(onClick = {}, text = null)
+                    val navController = rememberNavController()
+                    BottomNav(
+                        navController,
+                        onItemClick = {
+                            navController.navigate(it.route)
                         }
-                    }
-
+                    )
                 }
             }
         }
