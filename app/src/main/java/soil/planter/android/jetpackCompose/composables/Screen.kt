@@ -21,7 +21,7 @@ fun DictionaryScreen() {
         modifier = Modifier.fillMaxSize(),
         contentAlignment = Alignment.Center
     ) {
-        AddButton(onClick = {}, text = "Chat")
+        AddButton(onClick = {}, text = "Dictionary")
     }
 }
 @Composable
@@ -30,6 +30,6 @@ fun ShopScreen() {
         modifier = Modifier.fillMaxSize(),
         contentAlignment = Alignment.Center
     ) {
-        AddButton(onClick = {}, text = "Setting")
+        AddButton(onClick = {}, text = "Shop")
     }
 }
