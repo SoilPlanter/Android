@@ -24,7 +24,7 @@
             android:name=".jetpackCompose.activities.MainActivity"
             android:exported="true"
             android:label="@string/app_name"
-            android:theme="@style/Theme.AppCompat.NoActionBar">
+            android:theme="@style/Theme.Soil">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

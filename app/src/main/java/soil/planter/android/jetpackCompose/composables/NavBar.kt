@@ -1,7 +1,6 @@
 package soil.planter.android.jetpackCompose.composables
 
 import android.annotation.SuppressLint
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Home
@@ -20,11 +19,11 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import soil.planter.android.jetpackCompose.classes.BottomNavigationItem
-
 /*
 Todo:
  list of items should not be hardcoded inside the BottomNav composable
@@ -75,7 +74,7 @@ fun BottomNav(
                         selected = selected,
                         onClick = { onItemClick(item) },
                         label = {
-                            Text(text = item.title)
+                            //Text(text = item.title) // no title for cleaner look
                         },
                         icon = {
                             BadgedBox(
@@ -94,7 +93,8 @@ fun BottomNav(
                                         item.selectedIcon
                                     } else item.unselectedIcon,
                                     contentDescription = item.title,
-                                    modifier = Modifier.size(30.dp)
+                                    modifier = Modifier.size(35.dp),
+                                    tint = Color.Green
                                 )
                             }
 

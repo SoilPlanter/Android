@@ -20,7 +20,5 @@ fun AddButton(onClick: () -> Unit, text: String?) {
         if(text != null) {
             Text(text = text)
         }
-        //Spacer(modifier = Modifier.size(ButtonDefaults.IconSpacing))
-        //Spacer(modifier = Modifier.width(8.dp))
     }
 }
