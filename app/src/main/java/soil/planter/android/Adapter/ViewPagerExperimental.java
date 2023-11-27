@@ -13,10 +13,8 @@ import soil.planter.android.R;
 import soil.planter.android.Views.ExperimentalView;
 
 public class ViewPagerExperimental extends RecyclerView.Adapter {
-    private final Splash splash;
 
-    public ViewPagerExperimental(Splash splash) {
-        this.splash = splash;
+    public ViewPagerExperimental() {
     }
 
     class ViewHolder1 extends RecyclerView.ViewHolder {
@@ -37,8 +35,8 @@ class ViewHolderExperimental extends RecyclerView.ViewHolder {
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         if (viewType == 0) {
-            View view = LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.master_activity, parent, false);
+            SplashScreen view = new SplashScreen(parent.getContext());
+            view.setLayoutParams(new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
 
             return new ViewHolder1(view);
         } else if (viewType == 1) {
@@ -52,7 +50,7 @@ class ViewHolderExperimental extends RecyclerView.ViewHolder {
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         if (position == 0) {
-          splash.display();
+
         } else if (position == 1) {
         }
     }
@@ -63,9 +61,6 @@ class ViewHolderExperimental extends RecyclerView.ViewHolder {
     @Override
     public int getItemCount() {
         return 2;
-    }
-    public interface Splash{
-        void display();
     }
 }
 

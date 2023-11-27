@@ -66,7 +66,7 @@ public class MasterActivity extends AppCompatActivity {
 
         viewPager.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
         setContentView(viewPager);
-        viewPager.setAdapter(new ViewPagerExperimental(() -> fragmentManager.beginTransaction().replace(R.id.master_container, new SplashScreen()).commit()));
+        viewPager.setAdapter(new ViewPagerExperimental());
     }
 
     private void getPermsissions() {
