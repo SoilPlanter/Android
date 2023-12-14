@@ -40,6 +40,7 @@ public class ColorManager {
     private final int onSurfaceDark = 0;
 
     private final int onErrorDark = 0;
+
     private static ColorManager.Theme theme = Theme.LIGHT;
     private static ColorTheme themeLight = new ColorTheme.Light(Application.getAppContext());
     private static ColorTheme themeDark = new ColorTheme.Dark(Application.getAppContext());
