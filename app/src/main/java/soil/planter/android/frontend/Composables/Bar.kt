@@ -45,6 +45,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.modifier.modifierLocalConsumer
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.Font
@@ -77,20 +78,28 @@ fun generateTagDataList(modifier: Modifier){
         }
     }
 }
+fun Boolean.toInt() = if (this) 1 else 0
+
 @RequiresApi(Build.VERSION_CODES.Q)
-@Preview
 @Composable
-fun TopBar(modifier : Modifier = Modifier) {
+fun TopBar(modifier : Modifier = Modifier,type: Int) {
+    var modifier1 : Modifier = modifier.shadow(
+    elevation = 5.dp,
+    spotColor = Color(0x40000000),
+    ambientColor = Color(0x40000000)
+    )
+    .background(color = Color(android.graphics.Color.parseColor("#FFFFFF")))
+        .fillMaxWidth()
+
+    if (type == 1){
+        modifier1 = modifier1.wrapContentHeight()
+    }
+    else if (type == 0){
+        modifier1 = modifier1.height(180.dp)
+    }
+
     Column(
-        modifier
-            .wrapContentHeight()
-            .shadow(
-                elevation = 5.dp,
-                spotColor = Color(0x40000000),
-                ambientColor = Color(0x40000000)
-            )
-            .background(color = Color(android.graphics.Color.parseColor("#FFFFFF")))
-            .fillMaxWidth()
+            modifier = modifier1
     ) {
         Row(
             modifier
@@ -141,25 +150,31 @@ fun TopBar(modifier : Modifier = Modifier) {
             }
 
         }
-        Row(
-            modifier
-                .wrapContentHeight()
-                .fillMaxWidth(1f)
-                .padding(top = 20.dp)
-                .graphicsLayer { clip = false }
+        if (type == 1) {
 
-
-        ) {
-            SearchBar(
+            Row(
                 modifier
-                    .padding(start = 20.dp)
-                    .weight(1f)
-                    .wrapContentWidth()
-            )
-            Spacer(modifier = Modifier.width(20.dp))
-            RoundRectangleButton(modifier = Modifier
-                .padding(end = 20.dp)
-                .align(Alignment.CenterVertically))
+                    .wrapContentHeight()
+                    .fillMaxWidth(1f)
+                    .padding(top = 20.dp)
+                    .graphicsLayer { clip = false }
+
+
+            ) {
+                SearchBar(
+                    modifier
+                        .padding(start = 20.dp)
+                        .weight(1f)
+                        .wrapContentWidth()
+                )
+
+                Spacer(modifier = Modifier.width(20.dp))
+                RoundRectangleButton(
+                    modifier = Modifier
+                        .padding(end = 20.dp)
+                        .align(Alignment.CenterVertically)
+                )
+            }
         }
 
         generateTagDataList(Modifier)

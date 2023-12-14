@@ -174,10 +174,7 @@ fun DisplayPages(
         }
     ) { innerpadding->
 
-        Column(modifier = Modifier.padding(bottom = 60.dp)) {
-            TopBar()
-            Navigation(navController = navController)
-        }
+        Navigation(navController = navController)
 
     }
 }
