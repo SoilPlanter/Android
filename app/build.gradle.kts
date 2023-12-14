@@ -52,11 +52,15 @@ android {
 dependencies {
     implementation ("com.mikhaellopez:circularimageview:4.3.1")
     implementation ("com.makeramen:roundedimageview:2.3.0")
+    implementation("io.coil-kt:coil-compose:2.5.0")
+
     implementation ("androidx.appcompat:appcompat:1.6.1")
     // For loading and tinting drawables on older versions of the platform
     implementation ("androidx.appcompat:appcompat-resources:1.6.1")
     implementation("androidx.core:core-ktx:1.12.0")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.2")
+    implementation ("androidx.compose.ui:ui-text-google-fonts:1.5.4")
+
     implementation("androidx.activity:activity-compose:1.8.0")
     implementation("com.github.bumptech.glide:glide:4.16.0")
     implementation(platform("androidx.compose:compose-bom:2023.03.00"))
