@@ -1,7 +1,11 @@
 package soil.planter.android.jetpackCompose.composables
 
 import android.annotation.SuppressLint
+import androidx.compose.foundation.background
+import androidx.compose.foundation.border
+import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Menu
@@ -19,6 +23,10 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.drawBehind
+import androidx.compose.ui.draw.shadow
+import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
@@ -66,8 +74,19 @@ fun BottomNav(
     )
     val backStackEntry = navController.currentBackStackEntryAsState()
     Scaffold(
+
         bottomBar = {
-            NavigationBar {
+            NavigationBar(tonalElevation=5.dp, containerColor = Color.White, modifier =
+            Modifier.offset(y=1.dp).background(Color.White).shadow(
+                elevation = 10.dp,
+                spotColor = Color(0x40000000),
+                ambientColor = Color(0x40000000)
+            ).
+            clip(
+                shape = RoundedCornerShape(
+                    topStart = 16.dp,
+                    topEnd = 16.dp,
+                )).border(shape = RoundedCornerShape(topStart = 16.dp, topEnd = 16.dp), width= 1.dp, color = Color.LightGray)) {
                 items.forEach{ item ->
                     val selected = item.route == backStackEntry.value?.destination?.route
                     NavigationBarItem(
@@ -94,7 +113,7 @@ fun BottomNav(
                                     } else item.unselectedIcon,
                                     contentDescription = item.title,
                                     modifier = Modifier.size(35.dp),
-                                    tint = Color.Green
+                                    tint = Color.Black
                                 )
                             }
 
