@@ -36,5 +36,5 @@ fun ShopItemDisplay(modifier : Modifier = Modifier){
         items(shoptags) { item ->
             ShopItemCard()
         }
-    }
+    }//
 }
