@@ -23,7 +23,7 @@ import androidx.core.app.ActivityCompat;
 
 import java.util.Set;
 
-import soil.planter.android.Experimental.BTDevice;
+//import soil.planter.android.Experimental.BTDevice;
 import soil.planter.android.Views.ExperimentalView;
 
 public class BluetoothManager {
@@ -147,10 +147,10 @@ public class BluetoothManager {
                 String deviceHardwareAddress = device.getAddress(); // MAC address
                 Log.d(TAG, "onReceiveBT: " + deviceName + " " + deviceHardwareAddress);
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-                    discoveryListener.addDevice(new BTDevice(deviceName,deviceHardwareAddress,device.getAlias(), device.getUuids()));
+                    //discoveryListener.addDevice(new BTDevice(deviceName,deviceHardwareAddress,device.getAlias(), device.getUuids()));
                 }
-                else
-                    discoveryListener.addDevice(new BTDevice(deviceName,deviceHardwareAddress,"", device.getUuids()));
+                //else
+                    //discoveryListener.addDevice(new BTDevice(deviceName,deviceHardwareAddress,"", device.getUuids()));
 
             }
         }
@@ -223,7 +223,7 @@ public class BluetoothManager {
         void listen(boolean isOn);
     }
     public interface Discovery{
-        void addDevice(BTDevice device);
+        //void addDevice(BTDevice device);
     }
 
 

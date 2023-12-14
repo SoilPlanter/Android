@@ -1,42 +1,38 @@
 package soil.planter.android
 
+import android.os.Build
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
+import androidx.annotation.RequiresApi
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
-import soil.planter.android.Views.StandardButton
-import soil.planter.android.ui.theme.SoilTheme
+import androidx.compose.ui.graphics.Color
+import androidx.navigation.compose.rememberNavController
+import soil.planter.android.frontend.Composables.BottomNav
 
+//TODO
 class MainActivity : ComponentActivity() {
+    @RequiresApi(Build.VERSION_CODES.Q)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            SoilTheme {
-                loadLoginScreen()
-
-                   // A surface container using the 'background' color from the theme
+            soil.planter.android.frontend.ui.theme.SoilTheme {
+                // A surface container using the 'background' color from the theme
+                Surface(
+                    modifier = Modifier.fillMaxSize(),
+                    color = Color.White
+                ) {
+                    val navController = rememberNavController()
+                    BottomNav(
+                        navController,
+                        onItemClick = {
+                            navController.navigate(it.route)
+                        }
+                    )
+                }
             }
         }
-    }
-}
-
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    SoilTheme {
-        Greeting("Android")
-        StandardButton().draw()
-
     }
 }

@@ -24,7 +24,6 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.function.Predicate;
 
-import soil.planter.android.Experimental.BTDevice;
 import soil.planter.android.R;
 import soil.planter.android.Tools.BluetoothManager;
 
@@ -38,7 +37,7 @@ public class ExperimentalView extends FrameLayout implements BluetoothManager.Bl
 
 
     private static final int REQUEST_ENABLE_BT = 7;
-    private ArrayList<BTDevice> devices;
+    //private ArrayList<BTDevice> devices;
 
     public ExperimentalView(Context context) {
         super(context);
@@ -65,63 +64,63 @@ public class ExperimentalView extends FrameLayout implements BluetoothManager.Bl
 
     private void init() {
         LayoutInflater.from(getContext()).inflate(R.layout.experimental_view, this);
-        findDeviceBtn = findViewById(R.id.btn_find_devices_ex);
-        roundedImageViewBtONOFF = findViewById(R.id.image_bt_on_off);
-        endBlueToothBtn = findViewById(R.id.btn_end_blue);
-        deviceContainer = findViewById(R.id.device_container_ex);
+  //     findDeviceBtn = findViewById(R.id.btn_find_devices_ex);
+  //     roundedImageViewBtONOFF = findViewById(R.id.image_bt_on_off);
+  //     endBlueToothBtn = findViewById(R.id.btn_end_blue);
+  //     deviceContainer = findViewById(R.id.device_container_ex);
 
-        BluetoothManager bluetoothManager = BluetoothManager.getInstance();
+  //     BluetoothManager bluetoothManager = BluetoothManager.getInstance();
 
-        startBlueToothBtn = findViewById(R.id.btn_start_blue);
+  //     startBlueToothBtn = findViewById(R.id.btn_start_blue);
 
-        startBlueToothBtn.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                bluetoothManager.startBluetooth();
-            }
-        });
-        endBlueToothBtn.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                bluetoothManager.endBluetooth();
+  //     startBlueToothBtn.setOnClickListener(new OnClickListener() {
+  //         @Override
+  //         public void onClick(View view) {
+  //             bluetoothManager.startBluetooth();
+  //         }
+  //     });
+  //     endBlueToothBtn.setOnClickListener(new OnClickListener() {
+  //         @Override
+  //         public void onClick(View view) {
+  //             bluetoothManager.endBluetooth();
 
-            }
-        });
+  //         }
+  //     });
 
-        findDeviceBtn.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                bluetoothManager.discovery(new BluetoothManager.Discovery() {
-                    @Override
-                    public void addDevice(BTDevice device) {
-                        if (!devices.stream().anyMatch(btDevice -> btDevice.getAdress().equals(device.getAdress())))
-                            devices.add(device);
-                        updateListDevicesView();
-                    }
-                });
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        bluetoothManager.endDiscovery();
+  //     findDeviceBtn.setOnClickListener(new OnClickListener() {
+  //         @Override
+  //         public void onClick(View view) {
+  //             bluetoothManager.discovery(new BluetoothManager.Discovery() {
+  //                 @Override
+  //                 public void addDevice(BTDevice device) {
+  //                     if (!devices.stream().anyMatch(btDevice -> btDevice.getAdress().equals(device.getAdress())))
+  //                         devices.add(device);
+  //                     updateListDevicesView();
+  //                 }
+  //             });
+  //             new Handler().postDelayed(new Runnable() {
+  //                 @Override
+  //                 public void run() {
+  //                     bluetoothManager.endDiscovery();
 
-                    }
-                },12000);
+  //                 }
+  //             },12000);
 
-            }
-        });
-        bluetoothManager.listenBT(this);
+  //         }
+  //     });
+  //     bluetoothManager.listenBT(this);
 
 
     }
 
     private void updateListDevicesView() {
         deviceContainer.removeAllViews();
-        for (BTDevice btDevice : devices){
-            TextView view = new TextView(getContext());
-
-            view.setText(btDevice.getName());
-            deviceContainer.addView(view);
-        }
+     //   for (BTDevice btDevice : devices){
+     //       TextView view = new TextView(getContext());
+//
+     //       view.setText(btDevice.getName());
+     //       deviceContainer.addView(view);
+     //   }
     }
 
     private void granted() {
