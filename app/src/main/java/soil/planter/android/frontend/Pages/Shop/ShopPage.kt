@@ -28,7 +28,6 @@ fun ShopScreen() {
     Column(
         modifier = Modifier.fillMaxSize().background(Color.White),
     ) {
-        TopBar(modifier = Modifier.align(Alignment.CenterHorizontally))
         ShopItemDisplay(modifier = Modifier.padding())
 
     }

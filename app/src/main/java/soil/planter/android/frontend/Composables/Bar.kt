@@ -7,6 +7,7 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -111,7 +112,9 @@ fun TopBar(modifier : Modifier = Modifier) {
             Row(
                 modifier = modifier
                     .wrapContentHeight()
-                    .padding(end = 20.dp).wrapContentWidth().align(Alignment.CenterVertically),
+                    .padding(end = 20.dp)
+                    .wrapContentWidth()
+                    .align(Alignment.CenterVertically),
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.End
             ) {
@@ -154,7 +157,9 @@ fun TopBar(modifier : Modifier = Modifier) {
                     .wrapContentWidth()
             )
             Spacer(modifier = Modifier.width(20.dp))
-            RoundRectangleButton(modifier = Modifier.padding(end = 20.dp).align(Alignment.CenterVertically))
+            RoundRectangleButton(modifier = Modifier
+                .padding(end = 20.dp)
+                .align(Alignment.CenterVertically))
         }
 
         generateTagDataList(Modifier)
@@ -171,7 +176,7 @@ fun TopBar(modifier : Modifier = Modifier) {
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter") // no custom padding when using scaffold
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun BottomNav(
+fun DisplayPages(
     navController: NavHostController,
     onItemClick: (BottomNavigationItemData) -> Unit
 ) {
@@ -215,17 +220,25 @@ fun BottomNav(
                 contentColor = if(selected)contentColorSelected else contentColorUnselected,
                 containerColor = Color.White,
                 modifier =
-            Modifier.offset(y=1.dp).background(Color.White).shadow(
-                elevation = 10.dp,
-                spotColor = Color(0x40000000),
-                ambientColor = Color(0x40000000)
-            ).
-            clip(
-                shape = RoundedCornerShape(
-                    topStart = 16.dp,
-                    topEnd = 16.dp,
-                )
-            ).border(shape = RoundedCornerShape(topStart = 16.dp, topEnd = 16.dp), width= 1.dp, color = Color.LightGray)) {
+                Modifier
+                    .offset(y = 1.dp)
+                    .background(Color.White)
+                    .shadow(
+                        elevation = 10.dp,
+                        spotColor = Color(0x40000000),
+                        ambientColor = Color(0x40000000)
+                    )
+                    .clip(
+                        shape = RoundedCornerShape(
+                            topStart = 16.dp,
+                            topEnd = 16.dp,
+                        )
+                    )
+                    .border(
+                        shape = RoundedCornerShape(topStart = 16.dp, topEnd = 16.dp),
+                        width = 1.dp,
+                        color = Color.LightGray
+                    )) {
                 items.forEach{ item ->
                     val selected1 = item.route == backStackEntry.value?.destination?.route
                     selected = selected1
@@ -263,8 +276,11 @@ fun BottomNav(
                 }
             }
         }
-    ) {
-        Navigation(navController = navController)
+    ) { innerpadding->
+        Box(modifier = Modifier.padding(bottom = 60.dp)) {
+            Navigation(navController = navController)
+        }
+
     }
 }
 @Composable
@@ -278,7 +294,8 @@ fun SearchBar(modifier: Modifier = Modifier) {
             )
             .fillMaxWidth()
             .height(56.dp)
-            .background(color = Color(0xFFFFFFFF), shape = RoundedCornerShape(size = 15.dp)).padding(start = 20.dp)
+            .background(color = Color(0xFFFFFFFF), shape = RoundedCornerShape(size = 15.dp))
+            .padding(start = 20.dp)
     ) {
         Image(
             modifier = Modifier
