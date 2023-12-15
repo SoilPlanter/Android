@@ -22,26 +22,16 @@ fun Navigation(navController: NavHostController) {
     NavHost(navController=navController, startDestination= ScreenClass.HomeScreen.route) {
         // list of all Screens the controller can navigate to
         composable(route = ScreenClass.HomeScreen.route) {
-            Column(modifier = Modifier.padding(bottom = 60.dp)) {
-                TopBar(type=0)
-                HomeScreen()
-
-            }
+            HomeScreen()
         }
         composable(route = ScreenClass.DictionaryScreen.route) {
+            DictionaryScreen()
 
-            Column(modifier = Modifier.padding(bottom = 60.dp)) {
-                TopBar(type=1)
-                DictionaryScreen()
 
-            }        }
+        }
         composable(route= ScreenClass.ShopScreen.route) {
 
-            Column(modifier = Modifier.padding(bottom = 60.dp)) {
-                TopBar(type=1)
-                ShopScreen()
-
-            }
+            ShopScreen()
         }
 
     }

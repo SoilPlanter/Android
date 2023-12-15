@@ -30,17 +30,24 @@ import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import soil.planter.android.frontend.BottomNavigationItemData
 import soil.planter.android.frontend.Composables.TopBar
 import soil.planter.android.frontend.Navigation
+import soil.planter.android.frontend.Pages.Encyclopedia.DictionaryScreen
 
 //TODO
 class MainActivity : ComponentActivity() {
@@ -79,7 +86,7 @@ fun DisplayPages(
     val items = listOf(
         BottomNavigationItemData(
             title = "Home",
-            route = "home_screen",
+            route = "home_page",
             selectedIcon = Icons.Filled.Home,
             unselectedIcon = Icons.Outlined.Home,
             hasNews = false,
@@ -87,7 +94,7 @@ fun DisplayPages(
         ),
         BottomNavigationItemData(
             title = "Dictionary",
-            route = "dictionary_screen",
+            route = "encyclopedia_page",
             selectedIcon = Icons.Filled.Menu,
             unselectedIcon = Icons.Outlined.Menu,
             hasNews = false,
@@ -95,7 +102,7 @@ fun DisplayPages(
         ),
         BottomNavigationItemData(
             title = "Shop",
-            route = "shop_screen",
+            route = "shop_page",
             selectedIcon = Icons.Filled.ShoppingCart,
             unselectedIcon = Icons.Outlined.ShoppingCart,
             hasNews = false,
@@ -173,8 +180,35 @@ fun DisplayPages(
             }
         }
     ) { innerpadding->
+        var type by remember { mutableStateOf(1) }
 
-        Navigation(navController = navController)
+        // Listen for changes in the back stack
+        DisposableEffect(navController) {
+            val listener = NavController.OnDestinationChangedListener { _, _, _ ->
+                // Update the type based on the current destination or any other logic
+                type = if (navController.currentDestination?.route == "home_page") {
+                    0
+                } else {
+                    1
+                }
+            }
+
+            // Add the listener
+            navController.addOnDestinationChangedListener(listener)
+
+            // Remove the listener when the effect leaves the composition
+            //TODO understand this
+            onDispose {
+                navController.removeOnDestinationChangedListener(listener)
+            }
+        }
+
+        Column(modifier = Modifier.padding(bottom = 60.dp)) {
+            TopBar(type=type)
+            Navigation(navController = navController)
+
+        }
+
 
     }
 }

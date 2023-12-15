@@ -95,7 +95,7 @@ fun TopBar(modifier : Modifier = Modifier,type: Int) {
         modifier1 = modifier1.wrapContentHeight()
     }
     else if (type == 0){
-        modifier1 = modifier1.height(180.dp)
+        modifier1 = modifier1.height(160.dp)
     }
 
     Column(
