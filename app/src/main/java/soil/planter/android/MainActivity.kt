@@ -203,7 +203,7 @@ fun DisplayPages(
             }
         }
 
-        Column(modifier = Modifier.padding(bottom = 60.dp)) {
+        Column(modifier = Modifier.padding(bottom = 75.dp)) {
             TopBar(type=type)
             Navigation(navController = navController)
 
