@@ -5,6 +5,7 @@ import android.os.Build
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.activity.viewModels
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -40,6 +41,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
@@ -48,12 +50,17 @@ import soil.planter.android.frontend.BottomNavigationItemData
 import soil.planter.android.frontend.Composables.TopBar
 import soil.planter.android.frontend.Navigation
 import soil.planter.android.frontend.Pages.Encyclopedia.DictionaryScreen
+import soil.planter.android.frontend.Pages.Splash.SplashViewModel
 
 //TODO
 class MainActivity : ComponentActivity() {
+    private val viewModel: SplashViewModel by viewModels()
+
     @RequiresApi(Build.VERSION_CODES.Q)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        installSplashScreen().setKeepOnScreenCondition{viewModel.isLoading.value}
+
         setContent {
             soil.planter.android.frontend.ui.theme.SoilTheme {
 
