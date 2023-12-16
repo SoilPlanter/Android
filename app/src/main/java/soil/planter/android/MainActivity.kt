@@ -45,9 +45,11 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import soil.planter.android.frontend.BottomNavigationItemData
-import soil.planter.android.frontend.Composables.TopBar
+import soil.planter.android.frontend.Composables.Bar.PageData
+import soil.planter.android.frontend.Composables.Bar.TopBar
+import soil.planter.android.frontend.Composables.Bar.TopBarTypes
+import soil.planter.android.frontend.Composables.PageManager
 import soil.planter.android.frontend.Navigation
-import soil.planter.android.frontend.Pages.Encyclopedia.DictionaryScreen
 
 //TODO
 class MainActivity : ComponentActivity() {
@@ -180,16 +182,22 @@ fun DisplayPages(
             }
         }
     ) { innerpadding->
-        var type by remember { mutableStateOf(1) }
+        var type by remember { mutableStateOf(PageData()) }
 
         // Listen for changes in the back stack
         DisposableEffect(navController) {
             val listener = NavController.OnDestinationChangedListener { _, _, _ ->
                 // Update the type based on the current destination or any other logic
                 type = if (navController.currentDestination?.route == "home_page") {
-                    0
-                } else {
-                    1
+                    PageManager.createPageData("home_page")
+                } else if (navController.currentDestination?.route == "encyclopedia_page"){
+                    PageManager.createPageData("home_page")
+
+                } else if(navController.currentDestination?.route == "shop_page"){
+
+                }
+                else{
+
                 }
             }
 
@@ -204,7 +212,7 @@ fun DisplayPages(
         }
 
         Column(modifier = Modifier.padding(bottom = 75.dp)) {
-            TopBar(type=type)
+            TopBar(pageData)
             Navigation(navController = navController)
 
         }

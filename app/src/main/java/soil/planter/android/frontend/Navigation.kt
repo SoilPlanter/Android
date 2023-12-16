@@ -2,16 +2,10 @@ package soil.planter.android.frontend
 
 import android.os.Build
 import androidx.annotation.RequiresApi
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.modifier.modifierLocalConsumer
-import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import soil.planter.android.frontend.Composables.TopBar
 import soil.planter.android.frontend.Pages.Encyclopedia.DictionaryScreen
 import soil.planter.android.frontend.Pages.Home.HomeScreen
 import soil.planter.android.frontend.Pages.Shop.ShopScreen
