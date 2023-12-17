@@ -42,10 +42,12 @@ import soil.planter.android.R
 
 @Composable
 fun DescriptiveImageCard(modifier: Modifier = Modifier, item: TagViewData) {
-    Column(modifier = modifier
-        .height(100.dp)
-        .width(100.dp),verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally) {
+    Column(
+        modifier = modifier
+            .height(100.dp)
+            .width(100.dp), verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
         Image(
             painter = item.image,
             modifier = modifier.align(Alignment.CenterHorizontally),
@@ -71,11 +73,13 @@ fun DescriptiveImageCard(modifier: Modifier = Modifier, item: TagViewData) {
 @Composable
 fun ShopItemCard(modifier: Modifier = Modifier) {
 
-    Column(modifier = Modifier
-        .wrapContentHeight()
-        .padding(20.dp), // Adjust the height range as needed
+    Column(
+        modifier = Modifier
+            .wrapContentHeight()
+            .padding(20.dp), // Adjust the height range as needed
 
-        verticalArrangement = Arrangement.Center) {
+        verticalArrangement = Arrangement.Center
+    ) {
 
         AsyncImage(
             model = "https://images.unsplash.com/photo-1459411552884-841db9b3cc2a?q=80&w=2449&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
@@ -97,20 +101,26 @@ fun ShopItemCard(modifier: Modifier = Modifier) {
                 .scale(1.0f, 1.0f)
                 .align(Alignment.CenterHorizontally)
                 .fillMaxWidth()
-                .heightIn(min = 214.dp, max= 250.dp),
+                .heightIn(min = 214.dp, max = 250.dp),
             contentScale = ContentScale.Crop
 
         )
-        Row(Modifier.padding(top=8.dp)) {
+        Row(Modifier.padding(top = 8.dp)) {
             Text(text = "Peanut, Cactus")
-            Row (Modifier.padding(start= 8.dp)){
-                Image(painterResource(id = R.drawable.baseline_local_fire_department_24), contentDescription = "Fire")
+            Row(Modifier.padding(start = 8.dp)) {
+                Image(
+                    painterResource(id = R.drawable.baseline_local_fire_department_24),
+                    contentDescription = "Fire"
+                )
                 Spacer(modifier = Modifier.width(0.dp))
-                Image(painterResource(id = R.drawable.baseline_local_fire_department_24), contentDescription = "Fire")
+                Image(
+                    painterResource(id = R.drawable.baseline_local_fire_department_24),
+                    contentDescription = "Fire"
+                )
             }
         }
         Text(text = "Great for light and calm rooms with aesthetically pleasing Furniture")
-        Row(Modifier.padding(top= 8.dp)) {
+        Row(Modifier.padding(top = 8.dp)) {
             Text(
                 text = "12€",
                 style = TextStyle(
@@ -134,6 +144,7 @@ fun ShopItemCard(modifier: Modifier = Modifier) {
         }
     }
 }
+
 @Composable
 fun ImageCard(
     painter: Painter,
@@ -167,3 +178,39 @@ fun ImageCard(
         }
     }
 }
+
+@Composable
+fun EncyclopediaCardItem(
+    painter: Painter,
+    title: String,
+    name: String,
+    description: String,
+    modifier: Modifier = Modifier,
+    onClick: (() -> Unit)? = null
+) {
+    Card(
+        modifier = modifier
+            .width(200.dp)
+            .height(200.dp)
+            .clickable { onClick?.invoke() },
+        shape = RoundedCornerShape(30.dp),
+        elevation = CardDefaults.cardElevation(defaultElevation = 5.dp)
+    ) {
+        Box(modifier = Modifier.height(200.dp)) {
+            Image(
+                painter = painter,
+                contentDescription = description,
+                contentScale = ContentScale.Crop
+            )
+            Box(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(12.dp),
+                contentAlignment = Alignment.BottomStart
+            ) {
+                Text(title, style = TextStyle(color = Color.White, fontSize = 16.sp))
+            }
+        }
+    }
+}
+
