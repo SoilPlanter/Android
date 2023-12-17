@@ -20,7 +20,7 @@ import soil.planter.android.R
 import soil.planter.android.frontend.Composables.ImageCard
 
 @Composable
-fun HomeScreen() {
+fun HomePage() {
     Column {
         Column{
             //TODO: make this one text instead of two text composable

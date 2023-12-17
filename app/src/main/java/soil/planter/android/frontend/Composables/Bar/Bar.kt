@@ -33,6 +33,7 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import soil.planter.android.LocalPresenter
 import soil.planter.android.R
 import soil.planter.android.Views.TopBar
 import soil.planter.android.frontend.Composables.DescriptiveImageCard
@@ -70,10 +71,10 @@ fun TopBar(modifier : Modifier = Modifier,pageData: PageData) {
     .background(color = Color(android.graphics.Color.parseColor("#FFFFFF")))
         .fillMaxWidth()
 
-    if (type == TopBarTypes.OTHER){
+    if (pageData.topBarType == TopBarTypes.EXTENDED){
         modifier1 = modifier1.wrapContentHeight()
     }
-    else if (type == TopBarTypes.HOME){
+    else if (pageData.topBarType == TopBarTypes.COLLAPSED){
         modifier1 = modifier1.height(160.dp)
     }
 
@@ -86,7 +87,7 @@ fun TopBar(modifier : Modifier = Modifier,pageData: PageData) {
                 .fillMaxWidth()
         ) {
             Text(
-                text = "Shop",
+                text = pageData.title,
                 modifier = modifier.padding(start = 20.dp, top = 20.dp),
                 style = TextStyle(
                     fontSize = 28.sp,
@@ -129,7 +130,7 @@ fun TopBar(modifier : Modifier = Modifier,pageData: PageData) {
             }
 
         }
-        if (type == TopBarTypes.OTHER) {
+        if (pageData.topBarType == TopBarTypes.EXTENDED) {
 
             Row(
                 modifier

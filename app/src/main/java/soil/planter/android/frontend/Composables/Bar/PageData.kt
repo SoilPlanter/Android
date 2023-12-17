@@ -1,11 +1,12 @@
 package soil.planter.android.frontend.Composables.Bar
 
-data class PageData(val title: String,
-    val topBarType: TopBarTypes
+data class PageData(var title: String,
+                    var topBarType: TopBarTypes,
+                    var showBottomBar: Boolean
 
 
 
 
 ) {
-    constructor() : this(String(),TopBarTypes.OTHER)
+    constructor() : this("Default",TopBarTypes.COLLAPSED,true)
 }

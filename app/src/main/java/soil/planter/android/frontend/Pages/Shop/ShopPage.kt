@@ -22,7 +22,7 @@ import soil.planter.android.frontend.Composables.ShopItemData
 
 @RequiresApi(Build.VERSION_CODES.Q)
 @Composable
-fun ShopScreen() {
+fun ShopPage() {
     Column(
         modifier = Modifier.fillMaxSize().background(Color.White),
     ) {
