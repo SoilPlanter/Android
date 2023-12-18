@@ -60,6 +60,7 @@ dependencies {
     implementation("androidx.core:core-ktx:1.12.0")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.2")
     implementation ("androidx.compose.ui:ui-text-google-fonts:1.5.4")
+    implementation ("androidx.compose.runtime:runtime:1.5.4")
 
     implementation("androidx.activity:activity-compose:1.8.0")
     implementation("com.github.bumptech.glide:glide:4.16.0")

@@ -30,7 +30,10 @@ import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.DisposableEffect
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.compositionLocalOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -39,50 +42,69 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModel
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import soil.planter.android.frontend.BottomNavigationItemData
-import soil.planter.android.frontend.Composables.TopBar
+import soil.planter.android.frontend.Composables.Bar.PageData
+import soil.planter.android.frontend.Composables.Bar.TopBar
+import soil.planter.android.frontend.Composables.PageManager
 import soil.planter.android.frontend.Navigation
-import soil.planter.android.frontend.Pages.Encyclopedia.DictionaryScreen
 
-//TODO
+
+//TODO                    CompositionLocalProvider(LocalPresenter provides MainPresenter(), content = this)
+val LocalPresenter = compositionLocalOf<Any> { error("No presenter provided") }
+var presenter : MainViewModel = MainViewModel()
 class MainActivity : ComponentActivity() {
     @RequiresApi(Build.VERSION_CODES.Q)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         setContent {
             soil.planter.android.frontend.ui.theme.SoilTheme {
 
-                // A surface container using the 'background' color from the theme
-                Column(
-                    modifier = Modifier.fillMaxSize().background(color= Color.White),
+                CompositionLocalProvider(LocalPresenter provides presenter) {
 
-                ) {
-                    val navController = rememberNavController()
 
-                    DisplayPages(
-                        navController,
-                        onItemClick = {
-                            navController.navigate(it.route)
-                        }
-                    )
+                    // A surface container using the 'background' color from the theme
+                    Column(
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .background(color = Color.White),
+
+                        ) {
+
+                        val navController = rememberNavController()
+
+                        DisplayPages(
+                            navController,
+                            onItemClick = {
+                                navController.navigate(it.route)
+                            }
+                        )
+                    }
                 }
+            }
+
             }
         }
     }
-}
+
 @RequiresApi(Build.VERSION_CODES.Q)
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter") // no custom padding when using scaffold
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun DisplayPages(
     navController: NavHostController,
-    onItemClick: (BottomNavigationItemData) -> Unit
-) {
+    onItemClick: (BottomNavigationItemData) -> Unit,
+    ) {
+    val viewModel = LocalPresenter.current
+
     val items = listOf(
         BottomNavigationItemData(
             title = "Home",
@@ -109,102 +131,110 @@ fun DisplayPages(
             badgeCount = null
         ),
     )
+    var pageDataRemember by remember{mutableStateOf(PageManager.createPageData(PageManager.HOME_PAGE))}
+    var page = PageManager.createPageData(PageManager.HOME_PAGE)
+
     val backStackEntry = navController.currentBackStackEntryAsState()
+
     var selected = true
     var contentColorSelected = Color.Black
     var contentColorUnselected = Color.White
 
+    var owner = LocalLifecycleOwner.current
+
+    // Update the local state when the LiveData changes
+
+    DisposableEffect(presenter, backStackEntry) {
+        // Define the observer
+        val observer = Observer<PageData> { value ->
+            // Update the mutableStateOf
+            pageDataRemember = value
+        }
+
+        // Observe the LiveData
+        presenter.pageDataLive.observe(owner, observer)
+        presenter.pageDataLive.postValue(PageManager.createPageData(PageManager.HOME_PAGE))
+
+        // Remove the observer when the Composable is disposed
+        onDispose {
+            presenter.pageDataLive.removeObserver(observer)
+        }
+    }
+
+    //presenter.pageDataLive.removeObserver(observer)
+
     Scaffold(
 
         bottomBar = {
+            if (pageDataRemember!!.showBottomBar) {
 
-            NavigationBar(
-                tonalElevation=5.dp,
-                contentColor = if(selected)contentColorSelected else contentColorUnselected,
-                containerColor = Color.White,
-                modifier =
-                Modifier
-                    .offset(y = 1.dp)
-                    .background(Color.White)
-                    .shadow(
-                        elevation = 10.dp,
-                        spotColor = Color(0x40000000),
-                        ambientColor = Color(0x40000000)
-                    )
-                    .clip(
-                        shape = RoundedCornerShape(
-                            topStart = 16.dp,
-                            topEnd = 16.dp,
+                NavigationBar(
+                    tonalElevation = 5.dp,
+                    contentColor = if (selected) contentColorSelected else contentColorUnselected,
+                    containerColor = Color.White,
+                    modifier =
+                    Modifier
+                        .offset(y = 1.dp)
+                        .background(Color.White)
+                        .shadow(
+                            elevation = 10.dp,
+                            spotColor = Color(0x40000000),
+                            ambientColor = Color(0x40000000)
                         )
-                    )
-                    .border(
-                        shape = RoundedCornerShape(topStart = 16.dp, topEnd = 16.dp),
-                        width = 1.dp,
-                        color = Color.LightGray
-                    )) {
-                items.forEach{ item ->
-                    val selected1 = item.route == backStackEntry.value?.destination?.route
-                    selected = selected1
+                        .clip(
+                            shape = RoundedCornerShape(
+                                topStart = 16.dp,
+                                topEnd = 16.dp,
+                            )
+                        )
+                        .border(
+                            shape = RoundedCornerShape(topStart = 16.dp, topEnd = 16.dp),
+                            width = 1.dp,
+                            color = Color.LightGray
+                        )
+                ) {
+                    items.forEach { item ->
+                        val selected1 = item.route == backStackEntry.value?.destination?.route
+                        selected = selected1
 
-                    NavigationBarItem(
-                        selected = selected1,
-                        onClick = { onItemClick(item) },
-                        label = {
-                            //Text(text = item.title) // no title for cleaner look
-                        },
-                        icon = {
-                            BadgedBox(
-                                badge = {
-                                    if(item.badgeCount != null) {
-                                        Badge {
-                                            Text(text = item.badgeCount.toString())
+                        NavigationBarItem(
+                            selected = selected1,
+                            onClick = { onItemClick(item) },
+                            label = {
+                                //Text(text = item.title) // no title for cleaner look
+                            },
+                            icon = {
+                                BadgedBox(
+                                    badge = {
+                                        if (item.badgeCount != null) {
+                                            Badge {
+                                                Text(text = item.badgeCount.toString())
+                                            }
+                                        } else if (item.hasNews) {
+                                            Badge()
                                         }
-                                    } else if(item.hasNews) {
-                                        Badge()
-                                    }
-                                },
-                            ) {
-                                Icon(
-                                    imageVector = if (selected) {
-                                        item.selectedIcon
-                                    } else item.unselectedIcon,
-                                    contentDescription = item.title,
-                                    modifier = Modifier.size(35.dp),
-                                    tint = Color.Black
-                                )
-                            }
+                                    },
+                                ) {
+                                    Icon(
+                                        imageVector = if (selected) {
+                                            item.selectedIcon
+                                        } else item.unselectedIcon,
+                                        contentDescription = item.title,
+                                        modifier = Modifier.size(35.dp),
+                                        tint = Color.Black
+                                    )
+                                }
 
-                        }
-                    )
+                            }
+                        )
+                    }
                 }
             }
         }
     ) { innerpadding->
-        var type by remember { mutableStateOf(1) }
-
-        // Listen for changes in the back stack
-        DisposableEffect(navController) {
-            val listener = NavController.OnDestinationChangedListener { _, _, _ ->
-                // Update the type based on the current destination or any other logic
-                type = if (navController.currentDestination?.route == "home_page") {
-                    0
-                } else {
-                    1
-                }
-            }
-
-            // Add the listener
-            navController.addOnDestinationChangedListener(listener)
-
-            // Remove the listener when the effect leaves the composition
-            //TODO understand this
-            onDispose {
-                navController.removeOnDestinationChangedListener(listener)
-            }
-        }
-
         Column(modifier = Modifier.padding(bottom = 75.dp)) {
-            TopBar(type=type)
+            val pageData : PageData = pageDataRemember!!
+            TopBar(pageData= pageData)
             Navigation(navController = navController)
 
         }
