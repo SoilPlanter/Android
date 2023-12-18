@@ -13,18 +13,16 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import soil.planter.android.frontend.Composables.ShopItemCard
 import soil.planter.android.frontend.Composables.ShopItemData
-import soil.planter.android.frontend.Composables.TopBar
 
 
 @RequiresApi(Build.VERSION_CODES.Q)
 @Composable
-fun ShopScreen() {
+fun ShopPage() {
     Column(
         modifier = Modifier.fillMaxSize().background(Color.White),
     ) {

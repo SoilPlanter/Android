@@ -15,35 +15,9 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.plcoding.searchfieldcompose.MainViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun DictionaryScreen() {
-    val viewModel = viewModel<MainViewModel>()
-    val searchText by viewModel.searchText.collectAsState()
-    val plants by viewModel.plants.collectAsState()
-    val isSearching by viewModel.isSearching.collectAsState()
-    Column{
-        Text(
-            text = "Dictionary",
-            fontSize = 50.sp,
-            fontFamily = FontFamily.SansSerif,
-            maxLines = 2,
-            modifier = Modifier
-                .padding(16.dp),
-            overflow = TextOverflow.Visible
-        )
-    }
-    Column{
-        TextField(
-            value = searchText,
-            onValueChange = viewModel::onSearchTextChange,
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(vertical = 100.dp, horizontal = 20.dp),
-            placeholder = { Text(text = "Search...") }
-        )
+fun EncyclopediaPage() {
 
-    }
 }
