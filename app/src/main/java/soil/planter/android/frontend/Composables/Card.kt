@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -183,35 +184,23 @@ fun ImageCard(
 @Composable
 fun EncyclopediaCardItem(
     painter: Painter,
-    title: String,
     name: String,
-    description: String,
-    modifier: Modifier = Modifier,
-    onClick: (() -> Unit)? = null
+    description: String
 ) {
-    Card(
-        modifier = modifier
-            .width(200.dp)
-            .height(200.dp)
-            .clickable { onClick?.invoke() },
-        shape = RoundedCornerShape(30.dp),
-        elevation = CardDefaults.cardElevation(defaultElevation = 5.dp)
-    ) {
-        Box(modifier = Modifier.height(200.dp)) {
-            Image(
-                painter = painter,
-                contentDescription = description,
-                contentScale = ContentScale.Crop
-            )
-            Box(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(12.dp),
-                contentAlignment = Alignment.BottomStart
-            ) {
-                Text(title, style = TextStyle(color = Color.White, fontSize = 16.sp))
-            }
-        }
-    }
+    ImageCard(painter = painter, contentDescription = description, title = "", modifier = Modifier.size(125.dp))
+    Text(name, fontSize = 16.sp,
+        fontFamily = FontFamily(Font(R.font.k2d_medium)),
+        fontWeight = FontWeight(400),
+        color = Color(0xFF000000)
+    )
+    //TODO Spacing must be 4.dp vertically between these two texts
+    Text(description,
+        style = TextStyle(
+            fontSize = 12.sp,
+            fontFamily = FontFamily(Font(R.font.k2d_medium)),
+            fontWeight = FontWeight(400),
+            color = Color(0xFF858585)
+        )
+    )
 }
 
