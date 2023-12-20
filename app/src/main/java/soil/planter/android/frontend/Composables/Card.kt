@@ -178,7 +178,7 @@ fun EncyclopediaCardItem(
     name: String,
     description: String
 ) {
-    ImageCard(painter = painter, contentDescription = description, title = "", modifier = Modifier.size(125.dp))
+    ImageCard(painter = painter, contentDescription = description, modifier = Modifier.size(125.dp))
     Text(name, fontSize = 16.sp,
         fontFamily = FontFamily(Font(R.font.k2d_medium)),
         fontWeight = FontWeight(400),
