@@ -12,8 +12,8 @@ import soil.planter.android.LocalPresenter
 import soil.planter.android.frontend.Composables.PageManager
 import soil.planter.android.frontend.Pages.Encyclopedia.EncyclopediaPage
 import soil.planter.android.frontend.Pages.Encyclopedia.EncyclopediaPresenter
-import soil.planter.android.frontend.Pages.Home.HomePage
 import soil.planter.android.frontend.Pages.Home.HomePresenter
+import soil.planter.android.frontend.Pages.Home.HomeScreen
 import soil.planter.android.frontend.Pages.Shop.ShopPage
 import soil.planter.android.presenter
 
@@ -26,7 +26,7 @@ fun Navigation(navController: NavHostController) {
             presenter.pageDataLive.postValue(PageManager.createPageData(PageManager.HOME_PAGE))
             CompositionLocalProvider(LocalPresenter provides HomePresenter()) {
 
-                HomePage()
+                HomeScreen()
             }
         }
         composable(route = ScreenClass.EncyclopediaPage.route) {
