@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -42,10 +43,12 @@ import soil.planter.android.R
 
 @Composable
 fun DescriptiveImageCard(modifier: Modifier = Modifier, item: TagViewData) {
-    Column(modifier = modifier
-        .height(100.dp)
-        .width(100.dp),verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally) {
+    Column(
+        modifier = modifier
+            .height(100.dp)
+            .width(100.dp), verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
         Image(
             painter = item.image,
             modifier = modifier.align(Alignment.CenterHorizontally),
@@ -71,11 +74,13 @@ fun DescriptiveImageCard(modifier: Modifier = Modifier, item: TagViewData) {
 @Composable
 fun ShopItemCard(modifier: Modifier = Modifier) {
 
-    Column(modifier = Modifier
-        .wrapContentHeight()
-        .padding(20.dp), // Adjust the height range as needed
+    Column(
+        modifier = Modifier
+            .wrapContentHeight()
+            .padding(20.dp), // Adjust the height range as needed
 
-        verticalArrangement = Arrangement.Center) {
+        verticalArrangement = Arrangement.Center
+    ) {
 
         AsyncImage(
             model = "https://images.unsplash.com/photo-1459411552884-841db9b3cc2a?q=80&w=2449&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
@@ -97,20 +102,26 @@ fun ShopItemCard(modifier: Modifier = Modifier) {
                 .scale(1.0f, 1.0f)
                 .align(Alignment.CenterHorizontally)
                 .fillMaxWidth()
-                .heightIn(min = 214.dp, max= 250.dp),
+                .heightIn(min = 214.dp, max = 250.dp),
             contentScale = ContentScale.Crop
 
         )
-        Row(Modifier.padding(top=8.dp)) {
+        Row(Modifier.padding(top = 8.dp)) {
             Text(text = "Peanut, Cactus")
-            Row (Modifier.padding(start= 8.dp)){
-                Image(painterResource(id = R.drawable.baseline_local_fire_department_24), contentDescription = "Fire")
+            Row(Modifier.padding(start = 8.dp)) {
+                Image(
+                    painterResource(id = R.drawable.baseline_local_fire_department_24),
+                    contentDescription = "Fire"
+                )
                 Spacer(modifier = Modifier.width(0.dp))
-                Image(painterResource(id = R.drawable.baseline_local_fire_department_24), contentDescription = "Fire")
+                Image(
+                    painterResource(id = R.drawable.baseline_local_fire_department_24),
+                    contentDescription = "Fire"
+                )
             }
         }
         Text(text = "Great for light and calm rooms with aesthetically pleasing Furniture")
-        Row(Modifier.padding(top= 8.dp)) {
+        Row(Modifier.padding(top = 8.dp)) {
             Text(
                 text = "12€",
                 style = TextStyle(
@@ -134,6 +145,7 @@ fun ShopItemCard(modifier: Modifier = Modifier) {
         }
     }
 }
+
 @Composable
 fun ImageCard(
     painter: Painter,
@@ -159,3 +171,27 @@ fun ImageCard(
         }
     }
 }
+
+@Composable
+fun EncyclopediaCardItem(
+    painter: Painter,
+    name: String,
+    description: String
+) {
+    ImageCard(painter = painter, contentDescription = description, title = "", modifier = Modifier.size(125.dp))
+    Text(name, fontSize = 16.sp,
+        fontFamily = FontFamily(Font(R.font.k2d_medium)),
+        fontWeight = FontWeight(400),
+        color = Color(0xFF000000)
+    )
+    //TODO Spacing must be 4.dp vertically between these two texts
+    Text(description,
+        style = TextStyle(
+            fontSize = 12.sp,
+            fontFamily = FontFamily(Font(R.font.k2d_medium)),
+            fontWeight = FontWeight(400),
+            color = Color(0xFF858585)
+        )
+    )
+}
+
