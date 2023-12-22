@@ -157,9 +157,9 @@ fun ImageCard(
         modifier = modifier
             .width(100.dp)
             .height(100.dp)
-            .padding(8.dp)
+            .padding(0.dp)
             .clickable { onClick?.invoke() },
-        shape = RoundedCornerShape(30.dp),
+        shape = RoundedCornerShape(15.dp),
         elevation = CardDefaults.cardElevation(defaultElevation = 5.dp)
     ) {
         Box(modifier = Modifier.height(100.dp)) {
