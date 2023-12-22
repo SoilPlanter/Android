@@ -9,8 +9,10 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -66,7 +68,7 @@ fun HomePage() {
         ) {
         CarouselCard(sliderList)
         PlantInformation(info1 = "Moderate", info2 = "Moderate", info3 = 86, info4 = 21.7f)
-        Extras()
+        PlantInformationDisplay()
     }
 }
 
@@ -88,6 +90,17 @@ fun PlantInformation(
         ),
         modifier = Modifier.padding(bottom = 16.dp)
     )
+    PlantInformationDisplay(info1,
+        info2,
+        info3,
+        info4)
+
+}
+@Composable
+fun PlantInformationDisplay(info1: String,
+                            info2: String,
+                            info3: Int,
+                            info4: Float){
     Row {
         Spacer(modifier = Modifier.weight(0.5f))
         Card(
@@ -149,7 +162,10 @@ fun PlantText(
         Icon(
             image,
             contentDescription = null,
-            modifier = Modifier.padding(end = 4.dp)
+            modifier = Modifier
+                .height(24.dp)
+                .width(24.dp)
+                .padding(end = 4.dp)
         )
         Text(
             text = text,
@@ -164,7 +180,7 @@ fun PlantText(
 }
 
 @Composable
-fun Extras(
+fun PlantInformationDisplay(
 
 ) {
     Row(
@@ -172,7 +188,8 @@ fun Extras(
         horizontalArrangement = Arrangement.SpaceEvenly,
         modifier = Modifier
             .padding(16.dp)
-            .fillMaxWidth(),
+            .fillMaxWidth()
+        ,
     ) {
         Column(
             modifier = Modifier
@@ -188,28 +205,21 @@ fun Extras(
                 )
             )
             LazyRow(
+                horizontalArrangement = Arrangement.spacedBy(8.dp)
 
             ) {
-                item {
+                items(4) {
                     ImageCard(
                         painter = painterResource(R.drawable.shiitake),
                         contentDescription = "Shiitake",
+                        modifier = Modifier.size(72.dp)
+
                     )
-                    ImageCard(
-                        painter = painterResource(R.drawable.ajuga),
-                        contentDescription = "Shiitake",
-                    )
-                    ImageCard(
-                        painter = painterResource(R.drawable.shiitake),
-                        contentDescription = "Shiitake",
-                    )
-                    ImageCard(
-                        painter = painterResource(R.drawable.ajuga),
-                        contentDescription = "Shiitake",
-                    )
+
                 }
             }
         }
+        Spacer(modifier = Modifier.width(8.dp))
         Column(
             modifier = Modifier
                 .weight(1f)
@@ -224,25 +234,18 @@ fun Extras(
                 )
             )
             LazyRow(
+                horizontalArrangement = Arrangement.spacedBy(8.dp, Alignment.Start)
+
 
             ) {
-                item {
+                items(4) {
                     ImageCard(
                         painter = painterResource(R.drawable.shiitake),
                         contentDescription = "Shiitake",
+                        modifier = Modifier.size(72.dp)
+
                     )
-                    ImageCard(
-                        painter = painterResource(R.drawable.ajuga),
-                        contentDescription = "Shiitake",
-                    )
-                    ImageCard(
-                        painter = painterResource(R.drawable.shiitake),
-                        contentDescription = "Shiitake",
-                    )
-                    ImageCard(
-                        painter = painterResource(R.drawable.ajuga),
-                        contentDescription = "Shiitake",
-                    )
+
                 }
             }
         }
