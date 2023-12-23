@@ -120,7 +120,7 @@ fun ShopItemCard(modifier: Modifier = Modifier) {
                     contentDescription = "Fire"
                 )
             }
-        }
+        }//test
         Text(text = "Great for light and calm rooms with aesthetically pleasing Furniture")
         Row(Modifier.padding(top = 8.dp)) {
             Text(
