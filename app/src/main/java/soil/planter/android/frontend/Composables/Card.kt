@@ -124,6 +124,7 @@ fun ShopItemCard(modifier: Modifier = Modifier) {
                 contentScale = ContentScale.Crop
 
             )
+            TagView(modifier= Modifier.padding(8.dp), text2 = "")
         }
         Row(Modifier.padding(top = 8.dp)) {
             Text(text = "Peanut, Cactus")
@@ -161,7 +162,6 @@ fun ShopItemCard(modifier: Modifier = Modifier) {
                     color = Color(0xFF000000),
                 )
             )
-            TagView()
 
         }
     }
