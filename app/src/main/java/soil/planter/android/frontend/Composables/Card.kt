@@ -15,6 +15,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentHeight
+import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -157,9 +158,9 @@ fun ImageCard(
         modifier = modifier
             .width(100.dp)
             .height(100.dp)
-            .padding(8.dp)
+            .padding(0.dp)
             .clickable { onClick?.invoke() },
-        shape = RoundedCornerShape(30.dp),
+        shape = RoundedCornerShape(15.dp),
         elevation = CardDefaults.cardElevation(defaultElevation = 5.dp)
     ) {
         Box(modifier = Modifier.height(100.dp)) {
@@ -178,7 +179,7 @@ fun EncyclopediaCardItem(
     name: String,
     description: String
 ) {
-    ImageCard(painter = painter, contentDescription = description, title = "", modifier = Modifier.size(125.dp))
+    ImageCard(painter = painter, contentDescription = description, modifier = Modifier.wrapContentSize())
     Text(name, fontSize = 16.sp,
         fontFamily = FontFamily(Font(R.font.k2d_medium)),
         fontWeight = FontWeight(400),

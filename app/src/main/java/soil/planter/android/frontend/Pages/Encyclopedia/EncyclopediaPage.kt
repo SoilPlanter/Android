@@ -67,7 +67,7 @@ fun PlantsRowInfo(
         horizontalArrangement = Arrangement.spacedBy(20.dp),
     ){
         items(5) {
-            Column{
+            Column(Modifier.padding(bottom= 4.dp)){
                 EncyclopediaCardItem(painter = painter, name = name, description = description)
             }
         }
