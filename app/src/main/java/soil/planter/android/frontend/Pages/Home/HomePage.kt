@@ -70,7 +70,7 @@ fun HomePage() {
         horizontalAlignment = Alignment.CenterHorizontally,
 
         ) {
-        CarouselCard(sliderList)
+        CarouselCard(240,sliderList)
         PlantInformation(info1 = "Moderate", info2 = "Moderate", info3 = 86, info4 = 21.7f)
         PlantInformationDisplay()
     }
@@ -92,7 +92,7 @@ fun PlantInformation(
             color = Color.Black,
             textAlign = TextAlign.Center
         ),
-        modifier = Modifier.padding(bottom = 16.dp)
+        modifier = Modifier.padding(bottom =8.dp)
     )
     PlantInformationDisplay(info1,
         info2,

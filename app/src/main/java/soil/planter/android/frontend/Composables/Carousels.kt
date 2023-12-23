@@ -8,7 +8,9 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.pager.HorizontalPager
+import androidx.compose.foundation.pager.PageSize
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
@@ -24,7 +26,7 @@ import coil.size.Scale
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun CarouselCard(
+fun CarouselCard(height: Int,
     sliderList : List<String>
 ) {
     val pagerState = rememberPagerState(
@@ -40,9 +42,11 @@ fun CarouselCard(
     ) {
         HorizontalPager(
             state = pagerState,
-            contentPadding = PaddingValues(horizontal = 80.dp),
+            contentPadding = PaddingValues(start = 80.dp, end = 80.dp),
+            pageSize = PageSize.Fixed(height.dp),
+
             modifier = Modifier
-                .height(300.dp)
+                .height(height.dp)
         ) { page ->
             // checks if page is in the middle of the screen, offset = 0 -> middle, else -> not
             val pageOffset =
@@ -53,11 +57,8 @@ fun CarouselCard(
             )
             AsyncImage(
                 modifier = Modifier
-                    .padding(16.dp)
-                    .graphicsLayer {
-                        scaleX = imageSize
-                        scaleY = imageSize * 0.90f
-                    }
+                    .padding(start= 24.dp, end = 24.dp)
+                    .size(height.dp)
                     .clip(RoundedCornerShape(16.dp)),
                 model = ImageRequest.Builder(LocalContext.current)
                     .data(sliderList[page])
