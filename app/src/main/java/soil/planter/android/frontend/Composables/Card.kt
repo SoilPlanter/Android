@@ -118,7 +118,7 @@ fun ShopItemCard(modifier: Modifier = Modifier) {
                 Image(
                     painterResource(id = R.drawable.baseline_local_fire_department_24),
                     contentDescription = "Fire"
-                )
+                )//test
             }
         }//test
         Text(text = "Great for light and calm rooms with aesthetically pleasing Furniture")
