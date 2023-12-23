@@ -26,8 +26,8 @@ import androidx.compose.ui.unit.sp
 import soil.planter.android.R
 @Preview
 @Composable
-fun TagView (painter: Painter = painterResource(id = R.drawable.baseline_local_fire_department_24), color1: Color = Color.Blue, text2 : String = "Alert"){
-    Row (Modifier.padding(0.dp).wrapContentWidth().defaultMinSize(minWidth = 50.dp).background(color = color1, shape= RoundedCornerShape(16.dp)), horizontalArrangement = Arrangement.Center) {
+fun TagView (modifier: Modifier = Modifier,painter: Painter = painterResource(id = R.drawable.baseline_local_fire_department_24), color1: Color = Color.Blue, text2 : String = "Alert"){
+    Row (modifier.padding(0.dp).wrapContentWidth().defaultMinSize(minWidth = 50.dp).background(color = color1, shape= RoundedCornerShape(16.dp)), horizontalArrangement = Arrangement.Center) {
         Image(
             modifier = Modifier.padding(start =4.dp,top =4.dp,bottom =4.dp),
             painter = painter ,

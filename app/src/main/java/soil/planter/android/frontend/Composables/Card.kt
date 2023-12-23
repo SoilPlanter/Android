@@ -161,6 +161,8 @@ fun ShopItemCard(modifier: Modifier = Modifier) {
                     color = Color(0xFF000000),
                 )
             )
+            TagView()
+
         }
     }
 }
