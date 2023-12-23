@@ -83,30 +83,48 @@ fun ShopItemCard(modifier: Modifier = Modifier) {
         verticalArrangement = Arrangement.Center
     ) {
 
-        AsyncImage(
-            model = "https://images.unsplash.com/photo-1459411552884-841db9b3cc2a?q=80&w=2449&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-            contentDescription = "Translated description of what the image contains",
-            modifier = Modifier
-                .shadow(
-                    elevation = 5.dp,
-                    spotColor = Color(0x40000000),
-                    ambientColor = Color(0x40000000)
+        Box( modifier = Modifier
+            .shadow(
+                elevation = 5.dp,
+                spotColor = Color(0x40000000),
+                ambientColor = Color(0x40000000)
+            )
+            .clip(
+                shape = RoundedCornerShape(
+                    topStart = 16.dp,
+                    topEnd = 16.dp,
+                    bottomStart = 16.dp,
+                    bottomEnd = 16.dp
                 )
-                .clip(
-                    shape = RoundedCornerShape(
-                        topStart = 16.dp,
-                        topEnd = 16.dp,
-                        bottomStart = 16.dp,
-                        bottomEnd = 16.dp
+            )
+            .scale(1.0f, 1.0f)
+            .align(Alignment.CenterHorizontally)
+            .fillMaxWidth()
+            .heightIn(min = 214.dp, max = 250.dp),) {
+            AsyncImage(
+                model = "https://images.unsplash.com/photo-1459411552884-841db9b3cc2a?q=80&w=2449&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+                contentDescription = "Translated description of what the image contains",
+                modifier = Modifier
+                    .shadow(
+                        elevation = 5.dp,
+                        spotColor = Color(0x40000000),
+                        ambientColor = Color(0x40000000)
                     )
-                )
-                .scale(1.0f, 1.0f)
-                .align(Alignment.CenterHorizontally)
-                .fillMaxWidth()
-                .heightIn(min = 214.dp, max = 250.dp),
-            contentScale = ContentScale.Crop
+                    .clip(
+                        shape = RoundedCornerShape(
+                            topStart = 16.dp,
+                            topEnd = 16.dp,
+                            bottomStart = 16.dp,
+                            bottomEnd = 16.dp
+                        )
+                    )
+                    .scale(1.0f, 1.0f)
+                    .fillMaxWidth()
+                    .heightIn(min = 214.dp, max = 250.dp),
+                contentScale = ContentScale.Crop
 
-        )
+            )
+        }
         Row(Modifier.padding(top = 8.dp)) {
             Text(text = "Peanut, Cactus")
             Row(Modifier.padding(start = 8.dp)) {
