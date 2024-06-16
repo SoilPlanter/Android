@@ -77,6 +77,7 @@ fun HomePage() {
     }
 }
 
+
 @Composable
 fun PlantInformation(
     info1: String,
