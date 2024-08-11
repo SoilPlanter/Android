@@ -26,7 +26,6 @@ import soil.planter.android.frontend.Composables.EncyclopediaCardItem
 @RequiresApi(Build.VERSION_CODES.Q)
 @Composable
 fun EncyclopediaPage() {
-
     LazyColumn {
         item {
             PlantsRowInfo(title = "Araceae", painter = painterResource(id = R.drawable.chrysalidocarpus),

@@ -59,7 +59,8 @@ import soil.planter.android.frontend.Navigation
 
 //TODO                    CompositionLocalProvider(LocalPresenter provides MainPresenter(), content = this)
 val LocalPresenter = compositionLocalOf<Any> { error("No presenter provided") }
-var presenter : MainViewModel = MainViewModel()
+var presenter: MainViewModel = MainViewModel()
+
 class MainActivity : ComponentActivity() {
     @RequiresApi(Build.VERSION_CODES.Q)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -67,7 +68,7 @@ class MainActivity : ComponentActivity() {
 
         setContent {
             soil.planter.android.frontend.ui.theme.SoilTheme {
-
+// todo remove presenter if it is not necessary (research)
                 CompositionLocalProvider(LocalPresenter provides presenter) {
 
 
@@ -79,6 +80,7 @@ class MainActivity : ComponentActivity() {
 
                         ) {
 
+                        // todo research
                         val navController = rememberNavController()
 
                         DisplayPages(
@@ -91,18 +93,23 @@ class MainActivity : ComponentActivity() {
                 }
             }
 
-            }
         }
     }
+}
 
+//
 @RequiresApi(Build.VERSION_CODES.Q)
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter") // no custom padding when using scaffold
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
+//TODO look up how to comment methods with for example param
+        /**
+         *
+         */
 fun DisplayPages(
     navController: NavHostController,
     onItemClick: (BottomNavigationItemData) -> Unit,
-    ) {
+) {
     val viewModel = LocalPresenter.current
 
     val items = listOf(
@@ -131,7 +138,7 @@ fun DisplayPages(
             badgeCount = null
         ),
     )
-    var pageDataRemember by remember{mutableStateOf(PageManager.createPageData(PageManager.HOME_PAGE))}
+    var pageDataRemember by remember { mutableStateOf(PageManager.createPageData(PageManager.HOME_PAGE)) }
     var page = PageManager.createPageData(PageManager.HOME_PAGE)
 
     val backStackEntry = navController.currentBackStackEntryAsState()
@@ -231,10 +238,10 @@ fun DisplayPages(
                 }
             }
         }
-    ) { innerpadding->
+    ) { innerpadding ->
         Column(modifier = Modifier.padding(bottom = 75.dp)) {
-            val pageData : PageData = pageDataRemember!!
-            TopBar(pageData= pageData)
+            val pageData: PageData = pageDataRemember!!
+            TopBar(pageData = pageData)
             Navigation(navController = navController)
 
         }
