@@ -8,9 +8,15 @@ import soil.planter.android.frontend.Composables.PageManager
 import soil.planter.android.frontend.Composables.PageManager.Companion.HOME_PAGE
 
 class MainViewModel : ViewModel() {
-    // todo make private mutable and public getter
-    val pageDataLive : MutableLiveData<PageData> = MutableLiveData<PageData>()
+
+    private val _pageDataLive = MutableLiveData(PageManager.createPageData(HOME_PAGE))
+    val pageDataLive: LiveData<PageData> get() = _pageDataLive
+
+    fun set(pageData: PageData) {
+        _pageDataLive.value = pageData
+    }
 }
+
 
 
 //TODO ROOM DB (bigger data) , DATASTORE (single data, simple)

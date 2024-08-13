@@ -73,6 +73,7 @@ dependencies {
     implementation("androidx.compose.material3:material3")
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
     implementation("androidx.recyclerview:recyclerview:1.3.2")
+    implementation("androidx.compose.runtime:runtime-livedata:1.6.8")
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
@@ -86,5 +87,22 @@ dependencies {
 
     val navVersion = "2.7.5"
     implementation("androidx.navigation:navigation-compose:$navVersion")
+
+    implementation("androidx.fragment:fragment-ktx:1.4.1")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.8.4")
+
+    implementation("androidx.core:core-ktx:1.7.0")
+    implementation("androidx.activity:activity-ktx:1.4.0")
+
+
+    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.0-alpha01")
+
+    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.5.0-alpha01")
+
+    implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.5.0-alpha01")
+
+    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.5.0-alpha01")
+
+    implementation("androidx.lifecycle:lifecycle-viewmodel-savedstate:2.5.0-alpha01")
 }
 

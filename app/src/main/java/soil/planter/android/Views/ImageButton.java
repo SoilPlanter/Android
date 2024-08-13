@@ -42,6 +42,7 @@ public class ImageButton extends RoundView {
     private void initData() {
         imageView.setVisibility(VISIBLE);
         imageView.setLayoutParams(new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+        //TODO GLIDE
         Glide.with(imageView).load("https://images.unsplash.com/photo-1697588833877-48ef048c50ef?auto=format&fit=crop&q=80&w=2200&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D").centerCrop().into(imageView);
         parent.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(getContext(), R.color.green_prime)));
     }

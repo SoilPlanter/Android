@@ -24,7 +24,6 @@ import androidx.core.app.ActivityCompat;
 import java.util.Set;
 
 //import soil.planter.android.Experimental.BTDevice;
-import soil.planter.android.Views.ExperimentalView;
 
 public class BluetoothManager {
     private static BluetoothManager instance;

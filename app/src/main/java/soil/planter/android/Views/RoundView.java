@@ -14,6 +14,7 @@ import com.makeramen.roundedimageview.RoundedImageView;
 
 import soil.planter.android.R;
 
+// todo rename roundedcornerview
 public class RoundView extends FrameLayout {
     public RoundedImageView imageView;
     public FrameLayout parent;
