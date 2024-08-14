@@ -1,6 +1,6 @@
 package soil.planter.android.frontend
 
-import soil.planter.android.frontend.Composables.PageManager
+import soil.planter.android.frontend.composables.PageManager
 
 sealed class ScreenClass(val route: String) { // only classes inside this class can inherit
     object HomePage : ScreenClass(PageManager.HOME_PAGE)

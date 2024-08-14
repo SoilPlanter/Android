@@ -3,9 +3,9 @@ package soil.planter.android
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import soil.planter.android.frontend.Composables.Bar.PageData
-import soil.planter.android.frontend.Composables.PageManager
-import soil.planter.android.frontend.Composables.PageManager.Companion.HOME_PAGE
+import soil.planter.android.frontend.composables.bar.PageData
+import soil.planter.android.frontend.composables.PageManager
+import soil.planter.android.frontend.composables.PageManager.Companion.HOME_PAGE
 
 class MainViewModel : ViewModel() {
 
@@ -15,6 +15,8 @@ class MainViewModel : ViewModel() {
     fun set(pageData: PageData) {
         _pageDataLive.value = pageData
     }
+
+    // other functions to modify the data...
 }
 
 

@@ -40,8 +40,8 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import soil.planter.android.frontend.BottomNavigationItemData
-import soil.planter.android.frontend.Composables.Bar.PageData
-import soil.planter.android.frontend.Composables.Bar.TopBar
+import soil.planter.android.frontend.composables.bar.PageData
+import soil.planter.android.frontend.composables.bar.TopBar
 import soil.planter.android.frontend.Navigation
 import soil.planter.android.frontend.ui.theme.SoilTheme
 
@@ -108,13 +108,6 @@ fun DisplayPages(
     //TODO  make it remembered for news and badgecount
     val items = listOf(
         BottomNavigationItemData(
-            title = "Home",
-            route = "home_page",
-            selectedIcon = Icons.Filled.Home,
-            unselectedIcon = Icons.Outlined.Home,
-            hasNews = false,
-            badgeCount = null
-        ), BottomNavigationItemData(
             title = "Home",
             route = "home_page",
             selectedIcon = Icons.Filled.Home,
@@ -220,7 +213,10 @@ fun DisplayPages(
         Column(modifier = Modifier.padding(bottom = 75.dp)) {
             val pageData: PageData = pageDataState!!
             TopBar(pageData = pageData)
-            Navigation(navController = navController)
+            Navigation(
+                viewModel = viewModel,
+                navController = navController
+            )
 
         }
 

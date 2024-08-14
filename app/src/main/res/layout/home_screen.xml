@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <soil.planter.android.Views.PlantersView
+    <soil.planter.android.views.PlantersView
         android:id="@+id/planters_view_home"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
