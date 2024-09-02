@@ -23,9 +23,7 @@ import soil.planter.android.frontend.composables.ShopItemData
 @RequiresApi(Build.VERSION_CODES.Q)
 @Composable
 fun ShopPage() {
-    Column(
-        modifier = Modifier.fillMaxSize().background(Color.White),
-    ) {
+    Column {
         ShopItemDisplay(modifier = Modifier.padding())
 
     }
@@ -40,7 +38,7 @@ fun ShopItemDisplay(modifier : Modifier = Modifier){
     LazyColumn(
         modifier = modifier
             .fillMaxWidth()
-            .fillMaxHeight().background(Color.White),
+            .fillMaxHeight(),
         verticalArrangement = Arrangement.Center
 
 
@@ -48,5 +46,5 @@ fun ShopItemDisplay(modifier : Modifier = Modifier){
         items(shoptags) { item ->
             ShopItemCard()
         }
-    }//
+    }
 }

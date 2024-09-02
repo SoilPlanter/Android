@@ -189,7 +189,7 @@ fun EncyclopediaCardItem(
             fontSize = 12.sp,
             fontFamily = FontFamily(Font(R.font.k2d_medium)),
             fontWeight = FontWeight(400),
-            color = Color(0xFF858585)
+            color = Color(0xFF858585)  // todo possibly not enough contrast
         )
     )
 }

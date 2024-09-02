@@ -22,6 +22,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import soil.planter.android.R
 import soil.planter.android.frontend.composables.EncyclopediaCardItem
+import soil.planter.android.ui.theme.SoilTheme
 
 @RequiresApi(Build.VERSION_CODES.Q)
 @Composable
