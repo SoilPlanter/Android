@@ -8,6 +8,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import soil.planter.android.MainViewModel
 import soil.planter.android.frontend.composables.PageManager
+import soil.planter.android.frontend.pages.encyclopedia.EncyclopediaPage
 import soil.planter.android.frontend.pages.home.HomePage
 import soil.planter.android.frontend.pages.shop.ShopPage
 
@@ -25,7 +26,7 @@ fun Navigation(
         }
         composable(route = ScreenClass.EncyclopediaPage.route) {
             viewModel.set(PageManager.createPageData(PageManager.ENCYCLOPEDIA_PAGE))
-
+            EncyclopediaPage()
         }
         composable(route= ScreenClass.ShopPage.route) {
             viewModel.set(PageManager.createPageData(PageManager.SHOP_PAGE))

@@ -157,7 +157,6 @@ public class BluetoothManager {
 
     private BluetoothManager() {
 
-
     }
 
     public void query() {
