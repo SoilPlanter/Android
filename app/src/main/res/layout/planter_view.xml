@@ -30,12 +30,12 @@
             app:layout_constraintTop_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             android:orientation="horizontal">
-            <soil.planter.android.Views.ImageButton
+            <soil.planter.android.views.ImageButton
                 android:id="@+id/add_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
-            <soil.planter.android.Views.AddButton
+            <soil.planter.android.views.AddButton
                 android:id="@+id/add_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />

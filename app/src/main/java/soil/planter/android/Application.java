@@ -2,7 +2,7 @@ package soil.planter.android;
 
 import android.content.Context;
 
-import soil.planter.android.Tools.BluetoothManager;
+import soil.planter.android.tools.BluetoothManager;
 
 public class Application extends android.app.Application {
     private static Context applicationContext;

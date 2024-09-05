@@ -50,34 +50,34 @@ android {
 }
 
 dependencies {
-    implementation ("com.mikhaellopez:circularimageview:4.3.1")
-    implementation ("com.makeramen:roundedimageview:2.3.0")
+    implementation("com.mikhaellopez:circularimageview:4.3.1")
+    implementation("com.makeramen:roundedimageview:2.3.0")
     implementation("io.coil-kt:coil-compose:2.5.0")
 
-    implementation ("androidx.appcompat:appcompat:1.6.1")
-    // For loading and tinting drawables on older versions of the platform
-    implementation ("androidx.appcompat:appcompat-resources:1.6.1")
+    implementation("androidx.appcompat:appcompat:1.6.1")
+    implementation("androidx.appcompat:appcompat-resources:1.6.1")
     implementation("androidx.core:core-ktx:1.12.0")
-    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.2")
-    implementation ("androidx.compose.ui:ui-text-google-fonts:1.5.4")
-    implementation ("androidx.compose.runtime:runtime:1.5.4")
+    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.8.4") // Use latest stable version
+    implementation("androidx.compose.ui:ui-text-google-fonts:1.5.4")
+    implementation("androidx.compose.runtime:runtime:1.5.4")
 
     implementation("androidx.activity:activity-compose:1.8.0")
     implementation("com.github.bumptech.glide:glide:4.16.0")
     implementation(platform("androidx.compose:compose-bom:2023.03.00"))
     implementation("androidx.compose.ui:ui")
-    implementation ("androidx.appcompat:appcompat:1.3.0-beta01")
 
     implementation("androidx.compose.ui:ui-graphics")
     implementation("androidx.compose.ui:ui-tooling-preview")
     implementation("androidx.compose.material3:material3")
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
     implementation("androidx.recyclerview:recyclerview:1.3.2")
+    implementation("androidx.compose.runtime:runtime-livedata:1.5.4") // Match Compose version
+
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
-    implementation ("androidx.viewpager2:viewpager2:1.0.0")
-    implementation ("androidx.activity:activity-ktx:1.6.0")
+    implementation("androidx.viewpager2:viewpager2:1.0.0")
+    implementation("androidx.activity:activity-ktx:1.8.0") // Keep consistent with other versions
 
     androidTestImplementation(platform("androidx.compose:compose-bom:2023.03.00"))
     androidTestImplementation("androidx.compose.ui:ui-test-junit4")
@@ -86,5 +86,11 @@ dependencies {
 
     val navVersion = "2.7.5"
     implementation("androidx.navigation:navigation-compose:$navVersion")
+
+    // Use consistent, stable versions for lifecycle components
+    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.8.4")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.8.4")
+    implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.8.4")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-savedstate:2.8.4")
 }
 

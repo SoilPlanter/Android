@@ -1,5 +1,5 @@
 package soil.planter.android
-
+/*
 import android.annotation.SuppressLint
 import android.os.Build
 import android.os.Bundle
@@ -30,62 +30,66 @@ import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.DisposableEffect
+import androidx.compose.runtime.compositionLocalOf
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.Observer
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import soil.planter.android.frontend.BottomNavigationItemData
-import soil.planter.android.frontend.composables.bar.PageData
-import soil.planter.android.frontend.composables.bar.TopBar
+import soil.planter.android.frontend.Composables.Bar.PageData
+import soil.planter.android.frontend.Composables.Bar.TopBar
+import soil.planter.android.frontend.Composables.PageManager
 import soil.planter.android.frontend.Navigation
-import soil.planter.android.frontend.ui.theme.SoilTheme
 
-import androidx.activity.viewModels
-import androidx.compose.runtime.livedata.observeAsState
 
+//TODO                    CompositionLocalProvider(LocalPresenter provides MainPresenter(), content = this)
+val LocalPresenter = compositionLocalOf<Any> { error("No presenter provided") }
+var presenter: MainViewModel = MainViewModel()
 
 class MainActivity : ComponentActivity() {
-
-    private val mainViewModel by viewModels<MainViewModel>()
     @RequiresApi(Build.VERSION_CODES.Q)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         setContent {
-            SoilApp(mainViewModel)
-        }
-    }
-}
+            soil.planter.android.frontend.ui.theme.SoilTheme {
+// todo remove presenter if it is not necessary (research)
+                CompositionLocalProvider(LocalPresenter provides presenter) {
 
-@RequiresApi(Build.VERSION_CODES.Q)
-@Composable
-fun SoilApp(
-    viewModel: MainViewModel
-) {
-    SoilTheme {
-        // A surface container using the 'background' color from the theme
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .background(color = Color.White),
 
-            ) {
+                    // A surface container using the 'background' color from the theme
+                    Column(
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .background(color = Color.White),
 
-            // todo research
-            val navController = rememberNavController()
+                        ) {
 
-            DisplayPages(
-                viewModel,
-                navController,
-                onItemClick = {
-                    navController.navigate(it.route)
+                        // todo research
+                        val navController = rememberNavController()
+
+                        DisplayPages(
+                            navController,
+                            onItemClick = {
+                                navController.navigate(it.route)
+                            }
+                        )
+                    }
                 }
-            )
+            }
+
         }
     }
 }
@@ -100,14 +104,21 @@ fun SoilApp(
          *
          */
 fun DisplayPages(
-    viewModel: MainViewModel,
     navController: NavHostController,
     onItemClick: (BottomNavigationItemData) -> Unit,
 ) {
+    val viewModel = LocalPresenter.current
 
     //TODO  make it remembered for news and badgecount
     val items = listOf(
         BottomNavigationItemData(
+            title = "Home",
+            route = "home_page",
+            selectedIcon = Icons.Filled.Home,
+            unselectedIcon = Icons.Outlined.Home,
+            hasNews = false,
+            badgeCount = null
+        ), BottomNavigationItemData(
             title = "Home",
             route = "home_page",
             selectedIcon = Icons.Filled.Home,
@@ -132,19 +143,42 @@ fun DisplayPages(
             badgeCount = null
         ),
     )
-    val pageDataState by viewModel.pageDataLive.observeAsState()
+    var pageDataRemember by remember { mutableStateOf(PageManager.createPageData(PageManager.HOME_PAGE)) }
+    var page = PageManager.createPageData(PageManager.HOME_PAGE)
 
     val backStackEntry = navController.currentBackStackEntryAsState()
 
     var selected = true
-    val contentColorSelected = Color.Black
-    val contentColorUnselected = Color.White
+    var contentColorSelected = Color.Black
+    var contentColorUnselected = Color.White
 
+    var owner = LocalLifecycleOwner.current
+
+    // Update the local state when the LiveData changes
+
+    DisposableEffect(presenter, backStackEntry) {
+        // Define the observer
+        val observer = Observer<PageData> { value ->
+            // Update the mutableStateOf
+            pageDataRemember = value
+        }
+
+        // Observe the LiveData
+        presenter.pageDataLive.observe(owner, observer)
+        presenter.pageDataLive.postValue(PageManager.createPageData(PageManager.HOME_PAGE))
+
+        // Remove the observer when the Composable is disposed
+        onDispose {
+            presenter.pageDataLive.removeObserver(observer)
+        }
+    }
+
+    //presenter.pageDataLive.removeObserver(observer)
 
     Scaffold(
 
         bottomBar = {
-            if (pageDataState?.showBottomBar == true) {
+            if (pageDataRemember.showBottomBar) {
 
                 NavigationBar(
                     tonalElevation = 5.dp,
@@ -209,17 +243,14 @@ fun DisplayPages(
                 }
             }
         }
-    ) {
+    ) { innerpadding ->
         Column(modifier = Modifier.padding(bottom = 75.dp)) {
-            val pageData: PageData = pageDataState!!
+            val pageData: PageData = pageDataRemember!!
             TopBar(pageData = pageData)
-            Navigation(
-                viewModel = viewModel,
-                navController = navController
-            )
+            Navigation(navController = navController)
 
         }
 
 
     }
-}
+} */
